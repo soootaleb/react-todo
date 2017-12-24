@@ -13,7 +13,8 @@ class TDList extends React.Component<{
   private style = {
     root: {
       width: '50%',
-      height: '100%',
+      height: 'auto',
+      padding: 0,
       display: 'flex',
       alignItems: 'center' as 'center',
       flexDirection: 'column' as 'column',

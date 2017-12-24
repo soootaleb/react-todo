@@ -2,7 +2,7 @@ import { TDNotificationLevel } from './enumerations';
 
 export interface ITodo {
     label: string;
-    completed: boolean;
+
 }
 
 export interface INotification {
