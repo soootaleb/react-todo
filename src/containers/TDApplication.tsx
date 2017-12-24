@@ -5,6 +5,7 @@ import TDNotification from '../components/TDNotification';
 import { INotification } from '../interfaces';
 import { removeNotification } from '../actions';
 import { TDActionsTypes } from '../enumerations';
+import TDList from './TDList';
 
 class TDApplication extends React.Component<{
   notifications: INotification[],
@@ -16,7 +17,7 @@ class TDApplication extends React.Component<{
       width: '100%',
       height: '100%',
       display: 'flex',
-      alignItems: 'stretch' as 'stretch',
+      alignItems: 'center' as 'center',
       flexDirection: 'column' as 'column',
     },
     notifications: {
@@ -45,7 +46,8 @@ class TDApplication extends React.Component<{
   public render() {
     return (
       <div style={this.style.root}>
-        <h1>Hello TodoWorld !</h1>
+        <h1>React Todo</h1>
+        <TDList />
         <div style={this.style.notifications} >
           {this.getNotifications()}
         </div>

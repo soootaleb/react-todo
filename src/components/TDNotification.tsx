@@ -5,7 +5,7 @@ import { INotification } from '../interfaces';
 
 export default class TDNotification extends React.Component<{
     notification: INotification,
-    onClick: (notification: TDNotification) => { type: TDActionsTypes, payload: any }
+    onClick: (notification: TDNotification) => { type: TDActionsTypes, payload: INotification }
 }> {
 
     public get model(): INotification {
@@ -15,26 +15,26 @@ export default class TDNotification extends React.Component<{
     private getBackgroundColor(level: TDNotificationLevel | undefined): TDColors {
         switch (level) {
             case TDNotificationLevel.INFO:
-                return TDColors.NIGHT_BLUE;
+                return TDColors.PRIMARY;
             case TDNotificationLevel.DANGER:
-                return TDColors.CORAL;
+                return TDColors.DANGER;
             case TDNotificationLevel.SUCCESS:
-                return TDColors.AQUARMARINE;
+                return TDColors.SUCCESS;
             case TDNotificationLevel.WARNING:
-                return TDColors.CHROME_YELLOW;
+                return TDColors.WARNING;
             default:
-                return TDColors.NIGHT_BLUE;
+                return TDColors.PRIMARY;
         }
     }
 
     private getFontColor(level: TDNotificationLevel | undefined): TDColors {
         switch (level) {
             case TDNotificationLevel.WARNING:
-                return TDColors.INK_BLUE;
+                return TDColors.BLACK;
             case TDNotificationLevel.SUCCESS:
-                return TDColors.INK_BLUE;
+                return TDColors.BLACK;
             default:
-                return TDColors.NOT_WHITE;
+                return TDColors.WHITE;
         }
     }
 

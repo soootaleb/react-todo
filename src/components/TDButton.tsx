@@ -3,7 +3,7 @@ import { baseShadow, buttonBackground } from '../styles';
 
 export default class TDButton extends React.Component<{
     label?: string,
-    onClick: () => any
+    onClick: any
 }> {
 
     public state = {
@@ -18,7 +18,8 @@ export default class TDButton extends React.Component<{
         cursor: 'pointer',
         borderRadius: 1,
         border: 0,
-        margin: 10
+        margin: 10,
+        color: 'white'
     })
 
     public mouseOver = () => {

@@ -6,5 +6,5 @@ export const baseShadow = {
 };
 
 export const buttonBackground = (button: TDButton) => ({
-    backgroundColor: button.state.hover ? TDColors.CHROME_YELLOW : TDColors.WATER_GREEN
+    backgroundColor: button.state.hover ? TDColors.MINOR : TDColors.CATCHY
 });
