@@ -66,7 +66,14 @@ class TDInput extends React.Component<{
 }
 
 export default connect(null, (dispatch, props) => ({
-    onAdd: (todo: ITodo) => dispatch(addTodo(todo)),
+    onAdd: (todo: ITodo) => {
+        dispatch(addNotification({
+            level: TDNotificationLevel.SUCCESS,
+            header: 'Yeah !',
+            content: 'Todo added in your list'
+        }));
+        dispatch(addTodo(todo));
+    },
     onEmpty: () => dispatch(addNotification({
         level: TDNotificationLevel.WARNING,
         header: 'Oops !',

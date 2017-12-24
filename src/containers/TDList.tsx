@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { ITodo } from '../interfaces';
-import { completeTodo } from '../actions';
-import { TDActionsTypes } from '../enumerations';
+import { completeTodo, addNotification } from '../actions';
+import { TDActionsTypes, TDColors, TDNotificationLevel } from '../enumerations';
 import TDElement from '../components/TDElement';
 
 class TDList extends React.Component<{
@@ -19,14 +19,9 @@ class TDList extends React.Component<{
       alignItems: 'center' as 'center',
       flexDirection: 'column' as 'column',
     },
-    notifications: {
-      top: 0,
-      right: 0,
-      width: 'auto',
-      display: 'flex',
-      position: 'absolute' as 'absolute',
-      flexDirection: 'column' as 'column',
-      backgroundColor: 'transparent',
+    noTodos: {
+      color: TDColors.MINOR,
+      fontWeight: 100 as 100
     }
   };
 
@@ -43,16 +38,27 @@ class TDList extends React.Component<{
   }
 
   public render() {
-    return (
-      <ul style={this.style.root}>
-        {this.getElements()}
-      </ul>
-    );
+    if (this.props.elements.length > 0) {
+      return (
+        <ul style={this.style.root}>
+          {this.getElements()}
+        </ul>
+      );
+    } else {
+      return <p style={this.style.noTodos}>No todo for the moment. Add one !</p>;
+    }
   }
 }
 
 export default connect((state) => ({
   elements: state.todos
 }), (dispatch, props) => ({
-  onCompleteClicked: (element: ITodo) => dispatch(completeTodo(element))
+  onCompleteClicked: (element: ITodo) => {
+    dispatch(addNotification({
+      level: TDNotificationLevel.INFO,
+      header: 'Good job !',
+      content: 'Todo removed'
+    }));
+    dispatch(completeTodo(element));
+  }
 }))(TDList);
