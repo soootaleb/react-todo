@@ -4,6 +4,8 @@ This Todo App is a simple example to demonstrate React usage & my coding style. 
 
 While my main projects are done through companies private projects, I'm not allowed to publish anything. So I implemented this code for people to get an overview of my frontend skills.
 
+You can see the result at http://react-todo.yoyobro.wtf/
+
 ## Tools
 
 Along with React JS, I used several packages:
@@ -24,11 +26,3 @@ Also, I concentrated entities in simples files (reducers, epics, states, ...) be
 - Implementing a backend in order to push a bit more on network mechanics & data flow management.
 - Introducing my legendary skills with d3.js
 - Add functionnalities & more complex design.
-
-## Results
-
-You can of course pull the repo, install npm deps by using `npm install` & run the project with `npm start`.
-
-Here is a screenshot of what you can expect.
-
-![Screenshot](/screenshot.png)
