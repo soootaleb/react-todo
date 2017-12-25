@@ -26,7 +26,7 @@
     "transform": {
       "\\.(ts|tsx)$": "<rootDir>/node_modules/ts-jest/preprocessor.js"
     },
-    "testRegex": "tests.tsx"
+    "testRegex": "(.*).test.tsx"
   },
   "devDependencies": {
     "@types/d3": "^4.11.1",
