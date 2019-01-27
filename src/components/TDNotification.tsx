@@ -53,7 +53,7 @@ export default class TDNotification extends React.Component<{
             border: 0,
             position: 'relative' as 'relative',
             paddingLeft: 10,
-            borderRadius: 3,
+            borderRadius: 1,
             marginBottom: 10,
             backgroundColor: this.getBackgroundColor(self.props.notification.level),
         },
