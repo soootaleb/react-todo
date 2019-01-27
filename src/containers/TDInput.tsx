@@ -40,13 +40,21 @@ class TDInput extends React.Component<{
     }
 
     private onAdd = () => {
+        this.add();
+    }
+
+    private add() {
         if (this.state.value !== '') {
-            this.props.onAdd({
-                label: this.state.value
-            });
+            this.props.onAdd({label: this.state.value});
             this.setState({value: ''});
         } else {
             this.props.onEmpty();
+        }
+    }
+
+    private onKeyDown = (event) => {
+        if (event.key === 'Enter') {
+            this.add();
         }
     }
 
@@ -54,6 +62,7 @@ class TDInput extends React.Component<{
         return (
             <div style={this.style(this).root} >
                 <input
+                    onKeyDown={this.onKeyDown}
                     type="text"
                     style={this.style(this).input}
                     value={this.state.value}
