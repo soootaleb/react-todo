@@ -44,6 +44,7 @@ class TDInput extends React.Component<{
             this.props.onAdd({
                 label: this.state.value
             });
+            this.setState({value: ''});
         } else {
             this.props.onEmpty();
         }
@@ -55,6 +56,7 @@ class TDInput extends React.Component<{
                 <input
                     type="text"
                     style={this.style(this).input}
+                    value={this.state.value}
                     onChange={(event) => this.setState({
                         value: event.target.value
                     })}
