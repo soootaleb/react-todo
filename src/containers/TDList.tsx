@@ -4,6 +4,7 @@ import { ITodo } from '../interfaces';
 import { completeTodo, addNotification } from '../actions';
 import { TDActionsTypes, TDColors, TDNotificationLevel } from '../enumerations';
 import TDElement from '../components/TDElement';
+import { Style } from '../builder';
 
 class TDList extends React.Component<{
   elements: ITodo[],
@@ -11,14 +12,16 @@ class TDList extends React.Component<{
 }> {
 
   private style = {
-    root: {
+    root: new Style({
       width: '50%',
       height: 'auto',
       padding: 0,
       display: 'flex',
       alignItems: 'center' as 'center',
       flexDirection: 'column' as 'column',
-    },
+    }).mobile({
+        width: '90%'
+    }).build(),
     noTodos: {
       color: TDColors.MINOR,
       fontWeight: 100 as 100

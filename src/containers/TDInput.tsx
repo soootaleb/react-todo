@@ -5,6 +5,7 @@ import { ITodo, INotification } from '../interfaces';
 import { TDActionsTypes, TDNotificationLevel } from '../enumerations';
 import { connect } from 'react-redux';
 import { addTodo, addNotification } from '../actions';
+import { Style } from '../builder';
 
 class TDInput extends React.Component<{
     onAdd: (todo: ITodo) => ({ type: TDActionsTypes, payload: ITodo })
@@ -14,12 +15,14 @@ class TDInput extends React.Component<{
     public state = { value: '' };
 
     private style = (self: TDInput) => ({
-        root: {
+        root: new Style({
             ...baseShadow,
             width: '50%',
             display: 'flex',
             alignItems: 'stretch' as 'stretch'
-        },
+        }).mobile({
+            width: '90%'
+        }).build(),
         input: {
             ...baseShadow, // This a static mixin
             width: 'auto',
