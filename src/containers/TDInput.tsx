@@ -8,8 +8,10 @@ import { addTodo, addNotification } from '../actions';
 import { Style } from '../builder';
 
 class TDInput extends React.Component<{
+    todos: ITodo[],
     onAdd: (todo: ITodo) => ({ type: TDActionsTypes, payload: ITodo })
     onEmpty: () => ({ type: TDActionsTypes, payload: INotification })
+    onExists: () => ({ type: TDActionsTypes, payload: INotification })
 }> {
 
     private input: HTMLInputElement;
@@ -52,8 +54,14 @@ class TDInput extends React.Component<{
         this.add();
     }
 
+    /**
+     * This method is responsible for calling the correct behavior
+     * depending on wether the added ITodo is empty or already exists.
+     */
     private add() {
-        if (this.state.value !== '') {
+        if (this.props.todos.some((todo: ITodo) => todo.label === this.state.value)) {
+            this.props.onExists();
+        } else if (this.state.value !== '') {
             this.props.onAdd({label: this.state.value});
             this.setState({value: ''});
         } else {
@@ -86,7 +94,9 @@ class TDInput extends React.Component<{
     }
 }
 
-export default connect(null, (dispatch, props) => ({
+export default connect((state) => ({
+    todos: state.todos
+}), (dispatch, props) => ({
     onAdd: (todo: ITodo) => {
         dispatch(addNotification({
             level: TDNotificationLevel.SUCCESS,
@@ -96,8 +106,13 @@ export default connect(null, (dispatch, props) => ({
         dispatch(addTodo(todo));
     },
     onEmpty: () => dispatch(addNotification({
-        level: TDNotificationLevel.WARNING,
+        level: TDNotificationLevel.DANGER,
         header: 'Oops !',
         content: 'Please insert a label for your ticket'
+    })),
+    onExists: () => dispatch(addNotification({
+        level: TDNotificationLevel.WARNING,
+        header: 'Are you sure ?',
+        content: 'A ticket with the same label already exists.'
     }))
 }))(TDInput);
