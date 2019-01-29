@@ -16,10 +16,6 @@ class TDInput extends React.Component<{
 
     private input: HTMLInputElement;
 
-    componentDidMount() {
-        this.input.focus();
-    }
-
     public state = { value: '' };
 
     private style = (self: TDInput) => ({
@@ -42,23 +38,11 @@ class TDInput extends React.Component<{
         }
     })
 
-    public mouseOver = () => {
-        this.setState({ hover: true });
-    }
-
-    public mouseOut = () => {
-        this.setState({ hover: false });
-    }
-
-    private onAdd = () => {
-        this.add();
-    }
-
     /**
      * This method is responsible for calling the correct behavior
      * depending on wether the added ITodo is empty or already exists.
      */
-    private add() {
+    private onAdd = () => {
         if (this.props.todos.some((todo: ITodo) => todo.label === this.state.value)) {
             this.props.onExists();
         } else if (this.state.value !== '') {
@@ -69,10 +53,14 @@ class TDInput extends React.Component<{
         }
     }
 
-    private onKeyDown = (event) => {
+    private onKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
         if (event.key === 'Enter') {
-            this.add();
+            this.onAdd();
         }
+    }
+
+    componentDidMount() {
+        this.input.focus();
     }
 
     public render() {
