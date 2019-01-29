@@ -12,6 +12,12 @@ class TDInput extends React.Component<{
     onEmpty: () => ({ type: TDActionsTypes, payload: INotification })
 }> {
 
+    private input: HTMLInputElement;
+
+    componentDidMount() {
+        this.input.focus();
+    }
+
     public state = { value: '' };
 
     private style = (self: TDInput) => ({
@@ -65,8 +71,9 @@ class TDInput extends React.Component<{
         return (
             <div style={this.style(this).root} >
                 <input
-                    onKeyDown={this.onKeyDown}
                     type="text"
+                    ref={(element: HTMLInputElement) => this.input = element}
+                    onKeyDown={this.onKeyDown}
                     style={this.style(this).input}
                     value={this.state.value}
                     onChange={(event) => this.setState({
