@@ -14,6 +14,10 @@ class TDApplication extends React.Component<{
 }> {
 
   private style = {
+    img: {
+      height: '10%',
+      marginTop: '10%'
+    },
     root: {
       width: '100%',
       height: '100%',
@@ -47,7 +51,8 @@ class TDApplication extends React.Component<{
   public render() {
     return (
       <div style={this.style.root}>
-        <h1>React Todo</h1>
+        <img style={this.style.img} src="https://upload.wikimedia.org/wikipedia/fr/d/de/Logo_Paris_Descartes.png"/>
+        <h1>Paris Descartes - Webservices / SOA</h1>
         <TDList />
         <TDInput />
         <div style={this.style.notifications} >
