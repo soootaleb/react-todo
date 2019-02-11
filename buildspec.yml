@@ -1,0 +1,13 @@
+version: 0.1
+phases:
+  build:
+    commands:
+      - npm run build
+  post_build:
+    commands:
+      - aws s3 sync --delete build "s3://descartesprojetweb"
+      - aws s3 cp public/index.html "s3://descartesprojetweb"
+artifacts:
+    files:
+        - '**/*'
+    base-directory: build
