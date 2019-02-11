@@ -8,9 +8,9 @@ export enum TDActionsTypes {
 
 export enum TDColors {
     PRIMARY = '#9C27B0',
-    SECONDARY = '#BA68C8',
-    MINOR = '#E1BEE7',
-    CATCHY = '#AA00FF',
+    SECONDARY = '#BE2A33',
+    MINOR = '#E3333E',
+    CATCHY = '#BE2A33',
 
     BLACK = '#000000',
     WHITE = '#FFFFFF',
