@@ -8,5 +8,5 @@ phases:
       - npm run build
 artifacts:
     files:
-        - 'build/*'
-        - 'public/*'
+        - 'build/**/*'
+    base-directory: build
