@@ -52,7 +52,7 @@ class TDApplication extends React.Component<{
     return (
       <div style={this.style.root}>
         <img style={this.style.img} src="https://upload.wikimedia.org/wikipedia/fr/d/de/Logo_Paris_Descartes.png"/>
-        <h1>Paris Descartes - Webservices / SOA</h1>
+        <h1>Todo Descartes</h1>
         <TDList />
         <TDInput />
         <div style={this.style.notifications} >
