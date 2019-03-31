@@ -9,7 +9,7 @@ let ws: WebSocketSubject<any>;
 const connectWebSocketEpic = (action, store) => {
     return action.ofType(TDActionsTypes.CONNECT_WEBSOCKET)
         .switchMap(o => {
-            ws = Observable.webSocket(o.payload)
+            ws = Observable.webSocket(o.payload);
             return ws.map(messageReceived).catch(error => {
                 return Observable.of(addNotification({
                     level: TDNotificationLevel.DANGER,

@@ -38,7 +38,7 @@ class TDApplication extends React.Component<{
   };
 
   componentDidMount() {
-    this.props.onApplicationDidMount('ws://localhost:8999');
+    this.props.onApplicationDidMount('ws://projet-gateway.5dpb3nqcpm.eu-west-3.elasticbeanstalk.com:8999');
   }
 
   private getNotifications(): JSX.Element[] {
