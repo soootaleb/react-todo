@@ -4,7 +4,7 @@ This Todo App is a simple example to demonstrate React usage & my coding style. 
 
 While my main projects are done through companies private projects, I'm not allowed to publish anything. So I implemented this code for people to get an overview of my frontend skills.
 
-You can see the result at http://react-todo.yoyobro.wtf/
+You can see the result at http://descartes.yoyobro.wtf/
 
 ## Tools
 
