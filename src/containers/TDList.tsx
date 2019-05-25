@@ -13,15 +13,14 @@ class TDList extends React.Component<{
 
   private style = {
     root: new Style({
-      width: '50%',
       height: 'auto',
       padding: 0,
+      margin: 0,
+      marginBottom: '5%',
       display: 'flex',
       alignItems: 'center' as 'center',
       flexDirection: 'column' as 'column',
-    }).mobile({
-        width: '90%'
-    }).build(),
+    }).width('95%').build(),
     noTodos: {
       color: TDColors.MINOR,
       fontWeight: 100 as 100
