@@ -15,6 +15,7 @@ export default class TDElement extends React.Component<{
             borderRadius: 3,
             width: '100%',
             paddingLeft: 10,
+            boxSizing: 'border-box ',
             listStyleType: 'none',
             display: 'flex',
             justifyContent: 'space-between' as 'space-between',

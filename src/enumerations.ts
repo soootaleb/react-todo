@@ -26,3 +26,9 @@ export enum TDNotificationLevel {
     SUCCESS = 'Success notification',
     WARNING = 'Warning notification',
 }
+
+export enum TDTodoCategory {
+    TODO = 'To do',
+    DOING = 'Doing',
+    DONE = 'Done'
+}

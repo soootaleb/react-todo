@@ -1,7 +1,8 @@
-import { TDNotificationLevel } from './enumerations';
+import { TDNotificationLevel, TDTodoCategory } from './enumerations';
 
 export interface ITodo {
     label: string;
+    category: TDTodoCategory;
 }
 
 export interface INotification {

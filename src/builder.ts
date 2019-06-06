@@ -71,6 +71,11 @@ export class Style {
         return this;
     }
 
+    public padding(value: number | string): Style {
+        this.style.padding = value;
+        return this;
+    }
+
     public justify(where:
             'end' |
             'safe' |
