@@ -1,9 +1,15 @@
 language: node_js
 node_js:
-  - "10"
-  
+- '10'
 install:
-  - npm install
-
+- npm install
 script:
-  - npm test
+- npm test
+
+deploy:
+  provider: s3
+  access_key_id: AKIA5OQ6IKBEUCIULVG6
+  secret_access_key:
+    secure: NkpF/kIO6TyNrGk0zNEsTxMkiDDG1F4mD2NFgrNZ0oRg5mVsWxdug1X4DDWsvAB2NnWCBjJjWrYCgoEWo6XL+AknsMC319OigJU1rPgm/K/Su2QUrXCiO9s3cqjR+1/PPsVqDAgBZkcJ2e2z4MhX09VYHJLoZmSaHkK1+1pcGoYyILndhcVJoLLE4rTC0t6Ii4n+c0KOJYMp8NfUBKwJU51Hh4iihmacwI25aYWKZmRPcLDheFtWpm5Ft+MXjkd8TiVa8dS9VFXf721aX5NPrIrLiLI0KdUGVsV3QeZb7r9dbzsIvjkbuMi62213J+FvjRVyYvDhzOR88Hxl2qJQ1dmoFj5DcdVnv1YzBIEiMAJJW8GbvrPi5/FTGZreHXOpSyR2X2zEjg+wU0Z+kKk0llxss2ilPJ8BckwoQIShYsiVgUEi6UDqqQ3JtoPUAxtviMEBj+oIakVY6PXqsiz+BuENjb7dOPw3dfIjJDbkanAqJQYo95khmi5xJscuJnB4PFx1ZsFnGyG9zjLjjYVjSU/OIHnISVFGip/MehtCM3b58YPrP8mSI6lBaZCI5hkPoRvgak132Uftrks7OVVZR2sNiiUCIk+eO49bY9XelZq0JE21MrAUgfhonV5ec4UCNWHkQ/rmSnuZQDjVdisJr3owpJUpOkb3EbDWxnVZApM=
+  bucket: react-todo.yoyobro.wtf
+  skip_cleanup: true
