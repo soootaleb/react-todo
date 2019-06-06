@@ -13,3 +13,4 @@ deploy:
   bucket: react-todo.yoyobro.wtf
   skip_cleanup: true
   acl: public_read
+  region: "eu-west-1"
