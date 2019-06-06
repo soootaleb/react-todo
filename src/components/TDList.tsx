@@ -1,12 +1,10 @@
 import * as React from 'react';
-import { connect } from 'react-redux';
 import { ITodo } from '../interfaces';
-import { completeTodo, addNotification } from '../actions';
-import { TDActionsTypes, TDColors, TDNotificationLevel } from '../enumerations';
-import TDElement from '../components/TDElement';
+import { TDActionsTypes, TDColors } from '../enumerations';
+import TDElement from './TDElement';
 import { Style } from '../builder';
 
-class TDList extends React.Component<{
+export default class TDList extends React.Component<{
   elements: ITodo[],
   onCompleteClicked: (todo: ITodo) => { type: TDActionsTypes, payload: ITodo }
 }> {
@@ -51,16 +49,3 @@ class TDList extends React.Component<{
     }
   }
 }
-
-export default connect((state) => ({
-  elements: state.todos
-}), (dispatch, props) => ({
-  onCompleteClicked: (element: ITodo) => {
-    dispatch(addNotification({
-      level: TDNotificationLevel.INFO,
-      header: 'Good job !',
-      content: 'Todo removed'
-    }));
-    dispatch(completeTodo(element));
-  }
-}))(TDList);

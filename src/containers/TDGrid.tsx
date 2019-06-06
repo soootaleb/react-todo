@@ -2,9 +2,9 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { ITodo } from '../interfaces';
 import { completeTodo, addNotification } from '../actions';
-import { TDActionsTypes, TDColors, TDNotificationLevel } from '../enumerations';
+import { TDActionsTypes, TDColors, TDNotificationLevel, TDTodoCategory } from '../enumerations';
 import { Style } from '../builder';
-import TDList from './TDList';
+import TDList from '../components/TDList';
 
 class TDGrid extends React.Component<{
   elements: ITodo[],
@@ -36,15 +36,24 @@ class TDGrid extends React.Component<{
             <div style={this.style.root}>
                 <div style={this.style.col}>
                     <p style={this.style.header}>ToDo</p>
-                  <TDList />
+                  <TDList
+                    elements={this.props.elements.filter(e => e.category === TDTodoCategory.TODO)}
+                    onCompleteClicked={this.props.onCompleteClicked}
+                  />
                 </div>
                 <div style={this.style.col}>
                     <p style={this.style.header}>Doing</p>
-                    <TDList />
+                    <TDList
+                      elements={this.props.elements.filter(e => e.category === TDTodoCategory.DOING)}
+                      onCompleteClicked={this.props.onCompleteClicked}
+                    />
                 </div>
                 <div style={this.style.col}>
                     <p style={this.style.header}>Done</p>
-                    <TDList />
+                    <TDList
+                      elements={this.props.elements.filter(e => e.category === TDTodoCategory.DONE)}
+                      onCompleteClicked={this.props.onCompleteClicked}
+                    />
                 </div>
             </div>
         );
