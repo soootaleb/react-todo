@@ -1,4 +1,4 @@
-# React Todo [![Build Status](https://travis-ci.com/soootaleb/react-todo.svg?branch=master)](https://travis-ci.com/soootaleb/react-todo)
+  # React Todo [![Build Status](https://travis-ci.com/soootaleb/react-todo.svg?branch=master)](https://travis-ci.com/soootaleb/react-todo)
 
 This Todo App is a simple example to demonstrate React usage & my coding style. While many versions are available on the net, this implementation was made by me alone within several hours (on a sunday afternoon).
 
