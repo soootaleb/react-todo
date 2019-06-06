@@ -2,10 +2,11 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import TDElement from '../components/TDElement';
-import { TDActionsTypes } from '../enumerations';
+import { TDActionsTypes, TDTodoCategory } from '../enumerations';
 
 const todo = {
-  label: 'MyTodo'
+  label: 'MyTodo',
+  category: TDTodoCategory.TODO
 };
 
 let actions: any[] = [];
