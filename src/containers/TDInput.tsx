@@ -2,7 +2,7 @@ import * as React from 'react';
 import { baseShadow } from '../styles';
 import TDButton from '../components/TDButton';
 import { ITodo, INotification } from '../interfaces';
-import { TDActionsTypes, TDNotificationLevel } from '../enumerations';
+import { TDActionsTypes, TDNotificationLevel, TDTodoCategory } from '../enumerations';
 import { connect } from 'react-redux';
 import { addTodo, addNotification } from '../actions';
 import { Style } from '../builder';
@@ -46,7 +46,10 @@ class TDInput extends React.Component<{
         if (this.props.todos.some((todo: ITodo) => todo.label === this.state.value)) {
             this.props.onExists();
         } else if (this.state.value !== '') {
-            this.props.onAdd({label: this.state.value});
+            this.props.onAdd({
+                label: this.state.value,
+                category: TDTodoCategory.TODO
+            });
             this.setState({value: ''});
         } else {
             this.props.onEmpty();

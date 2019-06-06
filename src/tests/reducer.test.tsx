@@ -1,6 +1,7 @@
 import state from '../states';
 import reducer from '../reducers';
-import { TDActionsTypes } from '../enumerations';
+import { TDActionsTypes, TDTodoCategory } from '../enumerations';
+import { ITodo, INotification } from '../interfaces';
 
 test('Reducer returns state without action specified', () => {
     expect(reducer({...state}, {type: undefined})).toEqual({
@@ -10,7 +11,9 @@ test('Reducer returns state without action specified', () => {
 });
 
 test('Reducer adds a notification', () => {
-    const notification = {content: 'MyNotification'};
+    const notification: INotification = {
+        content: 'MyNotification'
+    };
     expect(reducer({...state}, {
         type: TDActionsTypes.ADD_NOTIFICATION,
         payload: notification
@@ -21,7 +24,9 @@ test('Reducer adds a notification', () => {
 });
 
 test('Reducer removes a notification', () => {
-    const notification = {content: 'MyNotification'};
+    const notification: INotification = {
+        content: 'MyNotification'
+    };
     expect(reducer({
         ...state,
         notifications: [notification] as never
@@ -35,7 +40,10 @@ test('Reducer removes a notification', () => {
 });
 
 test('Reducer adds a todo', () => {
-    const todo = {label: 'MyTodo'};
+    const todo: ITodo = {
+        label: 'MyTodo',
+        category: TDTodoCategory.TODO
+    };
     expect(reducer({...state}, {
         type: TDActionsTypes.ADD_TODO,
         payload: todo
@@ -46,7 +54,10 @@ test('Reducer adds a todo', () => {
 });
 
 test('Reducer removes a todo', () => {
-    const todo = {label: 'MyTodo'};
+    const todo: ITodo = {
+        label: 'MyTodo',
+        category: TDTodoCategory.TODO
+    };
     expect(reducer({
         ...state,
         todos: [todo] as never
