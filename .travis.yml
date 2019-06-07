@@ -1,17 +1,20 @@
 language: node_js
+
 node_js:
 - '10'
+
 install:
 - npm install
+
 script:
 - npm test
+
 deploy:
   provider: s3
-  access_key_id: AKIA5OQ6IKBEUCIULVG6
-  secret_access_key: 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
+  access_key_id: $AWS_ACCESS_KEY_ID
+  secret_access_key: $AWS_SECRET_ACCESS_KEY
   bucket: react-todo.yoyobro.wtf
   skip_cleanup: true
   acl: public_read
-  region: eu-west-1
-  on:
-    all_branches: true
+  region: $AWS_DEFAULT_REGION
+  local_dir: build
