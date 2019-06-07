@@ -13,6 +13,5 @@ deploy:
   skip_cleanup: true
   acl: public_read
   region: eu-west-1
-  branches:
-    only:
-      - cicd/deploy
+  on:
+    all_branches: true
