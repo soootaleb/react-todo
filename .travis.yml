@@ -11,12 +11,9 @@ jobs:
     - stage: test
       name: "Unit tests"
       script: npm test
-    - stage: build
-      name: "Transpilation"
-      script: npm run build
     - stage: deploy
-      name: "Deploy on S3"
-      script: skip
+      name: "Build & deploy on S3"
+      script: npm run build
       deploy: &s3
         on:
           branch: cicd/build
