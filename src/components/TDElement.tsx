@@ -26,15 +26,11 @@ export default class TDElement extends React.Component<{
         }
     })
 
-    private completedClicked = (todo: ITodo) => {
-        this.props.onCompleteClicked(this.props.todo);
-    }
-
     public render() {
         return (
             <li style={this.style(this).root} >
                 {this.props.todo.label}
-                <TDButton label="Complete" onClick={this.completedClicked} />
+                <TDButton label="Complete" onClick={this.props.onCompleteClicked} />
             </li>
         );
     }
