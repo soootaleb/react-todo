@@ -47,7 +47,7 @@ class TDApplication extends React.Component<{
   public render() {
     return (
       <div style={this.style.root}>
-        <h1>React Todo</h1>
+        <h1>Instant Todo</h1>
         <TDGrid />
         <TDInput />
         <div style={this.style.notifications} >
