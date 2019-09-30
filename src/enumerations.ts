@@ -30,5 +30,6 @@ export enum TDNotificationLevel {
 export enum TDTodoCategory {
     TODO = 'To do',
     DOING = 'Doing',
-    DONE = 'Done'
+    DONE = 'Done',
+    NULL = 'Null todo',
 }
