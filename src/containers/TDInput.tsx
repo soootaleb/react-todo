@@ -45,8 +45,8 @@ class TDInput extends React.Component<{
     private onAdd = () => {
         if (this.props.todos.some((todo: ITodo) => {
             return todo.label === this.state.value
-            && todo.category !== TDTodoCategory.NULL}
-        )) {
+                && todo.category !== TDTodoCategory.NULL;
+        })) {
             this.props.onExists();
         } else if (this.state.value !== '') {
             this.props.onAdd({
