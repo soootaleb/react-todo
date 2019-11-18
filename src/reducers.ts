@@ -1,5 +1,5 @@
 import initial from './states';
-import { TDActionsTypes as AT } from './enumerations';
+import { TDActionsTypes as AT, TDTodoCategory } from './enumerations';
 
 const map = {};
 
@@ -9,8 +9,13 @@ map[AT.ADD_TODO] = (state, action) => ({
 });
 
 map[AT.COMPLETE_TODO] = (state, action) => ({
-        ...state,
-        todos: state.todos.filter(todo => todo !== action.payload)    
+    ...state,
+    todos: [...state.todos.filter(todo => todo !== action.payload), {
+        ...action.payload,
+        category: action.payload.category === TDTodoCategory.TODO ?
+            TDTodoCategory.DOING : action.payload.category === TDTodoCategory.DOING ?
+            TDTodoCategory.DONE : TDTodoCategory.NULL
+    }]
 });
 
 map[AT.ADD_NOTIFICATION] = (state, action) => ({

@@ -53,7 +53,7 @@ test('Reducer adds a todo', () => {
     });
 });
 
-test('Reducer removes a todo', () => {
+test('Reducer moves a todo to doing', () => {
     const todo: ITodo = {
         label: 'MyTodo',
         category: TDTodoCategory.TODO
@@ -65,7 +65,50 @@ test('Reducer removes a todo', () => {
         type: TDActionsTypes.COMPLETE_TODO,
         payload: todo
     })).toEqual({
-        todos: [],
+        todos: [{
+            ...todo,
+            category: TDTodoCategory.DOING
+        }],
+        notifications: []
+    });
+});
+
+test('Reducer moves a doing to done', () => {
+    const todo: ITodo = {
+        label: 'MyTodo',
+        category: TDTodoCategory.DOING
+    };
+    expect(reducer({
+        ...state,
+        todos: [todo] as never
+    }, {
+        type: TDActionsTypes.COMPLETE_TODO,
+        payload: todo
+    })).toEqual({
+        todos: [{
+            ...todo,
+            category: TDTodoCategory.DONE
+        }],
+        notifications: []
+    });
+});
+
+test('Reducer moves a done to null', () => {
+    const todo: ITodo = {
+        label: 'MyTodo',
+        category: TDTodoCategory.DONE
+    };
+    expect(reducer({
+        ...state,
+        todos: [todo] as never
+    }, {
+        type: TDActionsTypes.COMPLETE_TODO,
+        payload: todo
+    })).toEqual({
+        todos: [{
+            ...todo,
+            category: TDTodoCategory.NULL
+        }],
         notifications: []
     });
 });
