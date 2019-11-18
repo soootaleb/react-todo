@@ -43,7 +43,7 @@ class TDInput extends React.Component<{
      * depending on wether the added ITodo is empty or already exists.
      */
     private onAdd = () => {
-        if (this.props.todos.some((todo: ITodo) => todo.label === this.state.value)) {
+        if (this.props.todos.some((todo: ITodo) => todo.label === this.state.value && todo.category !== TDTodoCategory.NULL)) {
             this.props.onExists();
         } else if (this.state.value !== '') {
             this.props.onAdd({
