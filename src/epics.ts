@@ -17,18 +17,16 @@ const submitRequestEpic = (action, store) => {
                 url: 'https://python.yoyobro.wtf:3000/',
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(o.payload)
+                body: o.payload
             }).map(response => {
-                console.log(response.response)
-                return setSuggestion(response.response as ISuggestion)
+                return setSuggestion(response.response as ISuggestion);
+            }).catch(error => {
+                return Observable.of(addNotification({
+                    level: TDNotificationLevel.DANGER,
+                    header: 'Failed to send todo',
+                    content: error.toString()
+                }));
             });
-        }).catch(error => {
-            console.error(error)
-            return Observable.of(addNotification({
-                level: TDNotificationLevel.DANGER,
-                header: 'Failed to send todo',
-                content: error.toString()
-            }));
         });
 };
 

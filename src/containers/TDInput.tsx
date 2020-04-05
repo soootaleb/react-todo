@@ -48,6 +48,14 @@ class TDInput extends React.Component<{
      * depending on wether the added ITodo is empty or already exists.
      */
     private onSubmit = () => {
+        for (let key of Object.keys(this.state)) {
+            if(this.state[key]) {
+                this.state[key] = parseInt(this.state[key])
+            } else {
+                this.state[key] = null;
+            }
+        }
+
         this.props.onSubmit(this.state);
     }
 
@@ -55,43 +63,43 @@ class TDInput extends React.Component<{
         return (
             <div style={this.style(this).root} >
                 <input
-                    placeholder="CPU"
+                    placeholder="CPU: Number of threads"
                     type="text"
                     style={this.style(this).input}
                     onChange={(event) => this.setState({...this.state, cpu: event.target.value})}
                 />
                 <input
-                    placeholder="RAM"
+                    placeholder="RAM: Number of GB"
                     type="text"
                     style={this.style(this).input}
                     onChange={(event) => this.setState({...this.state, ram: event.target.value})}
                 />
                 <input
-                    placeholder="STORAGE"
+                    placeholder="STORAGE: Number of persistant GB (can be block, ssd or hdd)"
                     type="text"
                     style={this.style(this).input}
                     onChange={(event) => this.setState({...this.state, disk: event.target.value})}
                 />
                 <input
-                    placeholder="GPU"
+                    placeholder="GPU: Number of GPUs"
                     type="text"
                     style={this.style(this).input}
                     onChange={(event) => this.setState({...this.state, gpu: event.target.value})}
                 />
                 <input
-                    placeholder="VM"
+                    placeholder="VM: 0 for bare metal, 1 for a virtual machine"
                     type="text"
                     style={this.style(this).input}
                     onChange={(event) => this.setState({...this.state, virt: event.target.value})}
                 />
                 <input
-                    placeholder="SSD"
+                    placeholder="SSD: Number of SSDs"
                     type="text"
                     style={this.style(this).input}
                     onChange={(event) => this.setState({...this.state, ssd: event.target.value})}
                 />
                 <input
-                    placeholder="HDD"
+                    placeholder="HDD: Number of HDDs"
                     type="text"
                     style={this.style(this).input}
                     onChange={(event) => this.setState({...this.state, hdd: event.target.value})}

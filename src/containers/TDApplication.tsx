@@ -7,7 +7,6 @@ import { removeNotification } from '../actions';
 import { TDActionsTypes } from '../enumerations';
 import TDInput from './TDInput';
 import TDOutput from '../components/TDOutput';
-import TDGrid from './TDGrid';
 
 class TDApplication extends React.Component<{
   suggestion: ISuggestion,
@@ -16,6 +15,10 @@ class TDApplication extends React.Component<{
 }> {
 
   private style = {
+    img: {
+      height: '10%',
+      marginTop: '5%'
+    },
     root: {
       width: '100%',
       height: '100%',
@@ -49,8 +52,9 @@ class TDApplication extends React.Component<{
   public render() {
     return (
       <div style={this.style.root}>
-        <h1>Instant Todo</h1>
-        <TDGrid />
+        <img style={this.style.img} src="https://bit.ly/2RdDIwm"/>
+        <h1>AWS Product Finder</h1>
+        <h3>Enter number values only. Fields are optional.</h3>
         <TDInput />
         <TDOutput suggestion={this.props.suggestion} />
         <div style={this.style.notifications} >
