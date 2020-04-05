@@ -8,6 +8,8 @@ import { TDActionsTypes } from '../enumerations';
 import TDInput from './TDInput';
 import TDOutput from '../components/TDOutput';
 
+import { Style } from '../builder';
+
 class TDApplication extends React.Component<{
   suggestion: ISuggestion,
   notifications: INotification[],
@@ -17,8 +19,11 @@ class TDApplication extends React.Component<{
   private style = {
     img: {
       height: '10%',
-      marginTop: '5%'
+      marginTop: '1%'
     },
+    main: new Style({
+        height: '50%'
+    }).flex().align('stretch').width('70%').build(),
     root: {
       width: '100%',
       height: '100%',
@@ -54,9 +59,16 @@ class TDApplication extends React.Component<{
       <div style={this.style.root}>
         <img style={this.style.img} src="https://bit.ly/2RdDIwm"/>
         <h1>AWS Product Finder</h1>
-        <h3>Enter number values only. Fields are optional.</h3>
-        <TDInput />
-        <TDOutput suggestion={this.props.suggestion} />
+        <ul>
+            <li>Values are optional</li>
+            <li>Values can only be numbers</li>
+            <li>Not specifying a value will result in auto selection</li>
+            <li>Suggested disk is null <strong>to define for block storage</strong></li>
+        </ul>
+        <div style={this.style.main}>
+            <TDInput />
+            <TDOutput suggestion={this.props.suggestion} />
+        </div>
         <div style={this.style.notifications} >
           {this.getNotifications()}
         </div>

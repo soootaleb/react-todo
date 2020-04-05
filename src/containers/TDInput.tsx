@@ -49,8 +49,8 @@ class TDInput extends React.Component<{
      */
     private onSubmit = () => {
         for (let key of Object.keys(this.state)) {
-            if(this.state[key]) {
-                this.state[key] = parseInt(this.state[key])
+            if (this.state[key]) {
+                this.state[key] = parseInt(this.state[key], 10);
             } else {
                 this.state[key] = null;
             }
