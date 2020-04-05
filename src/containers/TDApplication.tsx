@@ -18,17 +18,20 @@ class TDApplication extends React.Component<{
 
   private style = {
     img: {
-      height: '100%',
+      height: '50px',
       marginRight: '5%'
     },
-    main: new Style({
-        height: '60%'
-    }).flex().align('stretch').width('70%')
-    .mobile(new Style({ height: 'auto'}).flex('column').center().width('100%').build())
-    .build(),
+    main: new Style({height: '60%'}).flex()
+    .align('stretch').width('70%')
+    .mobile(
+        Style.flex('column')
+        .center()
+        .width('100%')
+        .build()
+    ).build(),
     root: new Style({
       width: '100%',
-      height: '100%',
+      height: 'auto',
       display: 'flex',
       alignItems: 'center' as 'center',
       flexDirection: 'column' as 'column',

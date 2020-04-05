@@ -24,14 +24,11 @@ class TDInput extends React.Component<{
     private style = (self: TDInput) => ({
         root: new Style({
             ...baseShadow,
-            width: '50%',
-            display: 'flex',
-            alignItems: 'stretch' as 'stretch'
-        }).flex('column')
+        }).flex('column').width('50%').align('stretch')
         .mobile({
             width: '90%'
         }).build(),
-        input: {
+        input: new Style({
             ...baseShadow, // This a static mixin
             width: 'auto',
             margin: 5,
@@ -39,8 +36,8 @@ class TDInput extends React.Component<{
             border: 0,
             flex: 1,
             paddingLeft: 10,
-            lineHeight: '4vh'
-        }
+            minHeight: '4vh'
+        }).build()
     })
 
     /**
@@ -62,48 +59,50 @@ class TDInput extends React.Component<{
     public render() {
         return (
             <div style={this.style(this).root} >
-                <input
-                    placeholder="CPU: Number of threads"
-                    type="text"
-                    style={this.style(this).input}
-                    onChange={(event) => this.setState({...this.state, cpu: event.target.value})}
-                />
-                <input
-                    placeholder="RAM: Number of GB"
-                    type="text"
-                    style={this.style(this).input}
-                    onChange={(event) => this.setState({...this.state, ram: event.target.value})}
-                />
-                <input
-                    placeholder="STORAGE: Number of persistant GB (can be block, ssd or hdd)"
-                    type="text"
-                    style={this.style(this).input}
-                    onChange={(event) => this.setState({...this.state, disk: event.target.value})}
-                />
-                <input
-                    placeholder="GPU: Number of GPUs"
-                    type="text"
-                    style={this.style(this).input}
-                    onChange={(event) => this.setState({...this.state, gpu: event.target.value})}
-                />
-                <input
-                    placeholder="VM: 0 for bare metal, 1 for a virtual machine"
-                    type="text"
-                    style={this.style(this).input}
-                    onChange={(event) => this.setState({...this.state, virt: event.target.value})}
-                />
-                <input
-                    placeholder="SSD: Number of SSDs"
-                    type="text"
-                    style={this.style(this).input}
-                    onChange={(event) => this.setState({...this.state, ssd: event.target.value})}
-                />
-                <input
-                    placeholder="HDD: Number of HDDs"
-                    type="text"
-                    style={this.style(this).input}
-                    onChange={(event) => this.setState({...this.state, hdd: event.target.value})}
-                />
+                <div style={Style.flex('column').expand().build()}>
+                    <input
+                        placeholder="CPU: Number of threads"
+                        type="text"
+                        style={this.style(this).input}
+                        onChange={(event) => this.setState({...this.state, cpu: event.target.value})}
+                    />
+                    <input
+                        placeholder="RAM: Number of GB"
+                        type="text"
+                        style={this.style(this).input}
+                        onChange={(event) => this.setState({...this.state, ram: event.target.value})}
+                    />
+                    <input
+                        placeholder="STORAGE: Number of persistant GB"
+                        type="text"
+                        style={this.style(this).input}
+                        onChange={(event) => this.setState({...this.state, disk: event.target.value})}
+                    />
+                    <input
+                        placeholder="GPU: Number of GPUs"
+                        type="text"
+                        style={this.style(this).input}
+                        onChange={(event) => this.setState({...this.state, gpu: event.target.value})}
+                    />
+                    <input
+                        placeholder="VM: 0 for bare metal, 1 for a virtual machine"
+                        type="text"
+                        style={this.style(this).input}
+                        onChange={(event) => this.setState({...this.state, virt: event.target.value})}
+                    />
+                    <input
+                        placeholder="SSD: Number of SSDs"
+                        type="text"
+                        style={this.style(this).input}
+                        onChange={(event) => this.setState({...this.state, ssd: event.target.value})}
+                    />
+                    <input
+                        placeholder="HDD: Number of HDDs"
+                        type="text"
+                        style={this.style(this).input}
+                        onChange={(event) => this.setState({...this.state, hdd: event.target.value})}
+                    />
+                </div>
                 <TDButton label="Suggest" onClick={this.onSubmit} />
             </div>
         );

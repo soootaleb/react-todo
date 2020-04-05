@@ -19,6 +19,10 @@ export default class TDOutput extends React.Component<{
         }).build()
     })
 
+    componentDidUpdate() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
     public render() {
         return <pre style={this.style(this).root}>{JSON.stringify(this.props.suggestion, null, 4)}</pre>;
     }
