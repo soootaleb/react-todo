@@ -18,9 +18,8 @@ const submitRequestEpic = (action, store) => {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: o.payload
-            }).map(response => {
-                return setSuggestion(response.response as ISuggestion);
-            }).catch(error => {
+            }).map(response => setSuggestion(response.response as ISuggestion))
+            .catch(error => {
                 return Observable.of(addNotification({
                     level: TDNotificationLevel.DANGER,
                     header: 'Failed to send todo',

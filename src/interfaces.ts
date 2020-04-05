@@ -22,15 +22,30 @@ export interface IRequest {
 }
 
 export interface ISuggestion {
-    category: string,
-    product: string,
-    properties: {
-        cpu: number | null,
-        ram: number | null,
-        disk: number | null,
-        gpu: number | null,
-        virt: number | null,
-        hdd: number | null,
-        ssd: number | null
+    AWS: {
+        category: string,
+        product: string,
+        properties: {
+            cpu: number | null,
+            ram: number | null,
+            disk: number | null,
+            gpu: number | null,
+            virt: number | null,
+            hdd: number | null,
+            ssd: number | null
+        }
+    },
+    SCW: {
+        category: string,
+        product: string,
+        properties: {
+            cpu: number | null,
+            ram: number | null,
+            disk: number | null,
+            gpu: number | null,
+            virt: number | null,
+            hdd: number | null,
+            ssd: number | null
+        }
     }
 }
