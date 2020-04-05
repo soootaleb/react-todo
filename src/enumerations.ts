@@ -12,15 +12,15 @@ export enum TDActionsTypes {
 export enum TDColors {
     PRIMARY = '#9C27B0',
     SECONDARY = '#BA68C8',
-    MINOR = '#E1BEE7',
-    CATCHY = '#AA00FF',
+    MINOR = '#9383e9',
+    CATCHY = '#5036db',
 
     BLACK = '#000000',
     WHITE = '#FFFFFF',
 
     DANGER = '#FF5252',
-    SUCCESS = '#B2FF59',
-    WARNING = '#FFFF00',
+    SUCCESS = '#2DA94D',
+    WARNING = '#F8952A',
 }
 
 export enum TDNotificationLevel {

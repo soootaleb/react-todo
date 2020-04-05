@@ -11,7 +11,9 @@ export default class TDOutput extends React.Component<{
         root: new Style({
             ...baseShadow,
             width: '50%',
-            margin: '1%'
+            margin: '1%',
+            paddingTop: '1%',
+            paddingBottom: '1%'
         }).flex().center().mobile({
             width: '90%'
         }).build()

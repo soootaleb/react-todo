@@ -23,14 +23,16 @@ class TDApplication extends React.Component<{
     },
     main: new Style({
         height: '50%'
-    }).flex().align('stretch').width('70%').build(),
-    root: {
+    }).flex().align('stretch').width('70%')
+    .mobile(new Style({ height: 'auto'}).flex('column').center().width('100%').build())
+    .build(),
+    root: new Style({
       width: '100%',
       height: '100%',
       display: 'flex',
       alignItems: 'center' as 'center',
       flexDirection: 'column' as 'column',
-    },
+    }).build(),
     notifications: {
       top: 0,
       right: 0,
@@ -57,8 +59,9 @@ class TDApplication extends React.Component<{
   public render() {
     return (
       <div style={this.style.root}>
-        <img style={this.style.img} src="https://bit.ly/2RdDIwm"/>
-        <h1>AWS Product Finder</h1>
+        <img style={this.style.img} src="/logo.png"/>
+        <h1>Agnostic 2 Cloud</h1>
+        <h4 style={({textAlign: 'center'})}>Small POC to map an agnostic compute requirement to a cloud provider product.</h4>
         <ul>
             <li>Values are optional</li>
             <li>Values can only be numbers</li>

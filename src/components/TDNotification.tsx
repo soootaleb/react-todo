@@ -31,8 +31,6 @@ export default class TDNotification extends React.Component<{
         switch (level) {
             case TDNotificationLevel.WARNING:
                 return TDColors.BLACK;
-            case TDNotificationLevel.SUCCESS:
-                return TDColors.BLACK;
             default:
                 return TDColors.WHITE;
         }
