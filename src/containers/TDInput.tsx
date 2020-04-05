@@ -1,22 +1,25 @@
 import * as React from 'react';
 import { baseShadow } from '../styles';
 import TDButton from '../components/TDButton';
-import { ITodo, INotification } from '../interfaces';
-import { TDActionsTypes, TDNotificationLevel, TDTodoCategory } from '../enumerations';
+import { TDActionsTypes, TDNotificationLevel } from '../enumerations';
 import { connect } from 'react-redux';
-import { addTodo, addNotification } from '../actions';
+import { addNotification, setRequest } from '../actions';
 import { Style } from '../builder';
+import { IRequest } from '../interfaces';
 
 class TDInput extends React.Component<{
-    todos: ITodo[],
-    onAdd: (todo: ITodo) => ({ type: TDActionsTypes, payload: ITodo })
-    onEmpty: () => ({ type: TDActionsTypes, payload: INotification })
-    onExists: () => ({ type: TDActionsTypes, payload: INotification })
+    onSubmit: (request: IRequest) => ({ type: TDActionsTypes, payload: IRequest })
 }> {
 
-    private input: HTMLInputElement;
-
-    public state = { value: '' };
+    public state: IRequest = {
+        cpu: null,
+        ram: null,
+        disk: null,
+        gpu: null,
+        virt: null,
+        ssd: null,
+        hdd: null,
+    };
 
     private style = (self: TDInput) => ({
         root: new Style({
@@ -24,7 +27,8 @@ class TDInput extends React.Component<{
             width: '50%',
             display: 'flex',
             alignItems: 'stretch' as 'stretch'
-        }).mobile({
+        }).flex('column')
+        .mobile({
             width: '90%'
         }).build(),
         input: {
@@ -35,6 +39,7 @@ class TDInput extends React.Component<{
             border: 0,
             flex: 1,
             paddingLeft: 10,
+            lineHeight: '4vh'
         }
     })
 
@@ -42,71 +47,67 @@ class TDInput extends React.Component<{
      * This method is responsible for calling the correct behavior
      * depending on wether the added ITodo is empty or already exists.
      */
-    private onAdd = () => {
-        if (this.props.todos.some((todo: ITodo) => {
-            return todo.label === this.state.value
-                && todo.category !== TDTodoCategory.NULL;
-        })) {
-            this.props.onExists();
-        } else if (this.state.value !== '') {
-            this.props.onAdd({
-                label: this.state.value,
-                category: TDTodoCategory.TODO
-            });
-            this.setState({value: ''});
-        } else {
-            this.props.onEmpty();
-        }
-    }
-
-    private onKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
-        if (event.key === 'Enter') {
-            this.onAdd();
-        }
-    }
-
-    componentDidMount() {
-        this.input.focus();
+    private onSubmit = () => {
+        this.props.onSubmit(this.state);
     }
 
     public render() {
         return (
             <div style={this.style(this).root} >
                 <input
+                    placeholder="CPU"
                     type="text"
-                    ref={(element: HTMLInputElement) => this.input = element}
-                    onKeyDown={this.onKeyDown}
                     style={this.style(this).input}
-                    value={this.state.value}
-                    onChange={(event) => this.setState({
-                        value: event.target.value
-                    })}
+                    onChange={(event) => this.setState({...this.state, cpu: event.target.value})}
                 />
-                <TDButton label="Add" onClick={this.onAdd} />
+                <input
+                    placeholder="RAM"
+                    type="text"
+                    style={this.style(this).input}
+                    onChange={(event) => this.setState({...this.state, ram: event.target.value})}
+                />
+                <input
+                    placeholder="STORAGE"
+                    type="text"
+                    style={this.style(this).input}
+                    onChange={(event) => this.setState({...this.state, disk: event.target.value})}
+                />
+                <input
+                    placeholder="GPU"
+                    type="text"
+                    style={this.style(this).input}
+                    onChange={(event) => this.setState({...this.state, gpu: event.target.value})}
+                />
+                <input
+                    placeholder="VM"
+                    type="text"
+                    style={this.style(this).input}
+                    onChange={(event) => this.setState({...this.state, virt: event.target.value})}
+                />
+                <input
+                    placeholder="SSD"
+                    type="text"
+                    style={this.style(this).input}
+                    onChange={(event) => this.setState({...this.state, ssd: event.target.value})}
+                />
+                <input
+                    placeholder="HDD"
+                    type="text"
+                    style={this.style(this).input}
+                    onChange={(event) => this.setState({...this.state, hdd: event.target.value})}
+                />
+                <TDButton label="Suggest" onClick={this.onSubmit} />
             </div>
         );
     }
 }
 
-export default connect((state) => ({
-    todos: state.todos
-}), (dispatch, props) => ({
-    onAdd: (todo: ITodo) => {
+export default connect((state) => ({}), (dispatch, props) => ({
+    onSubmit: (request: IRequest) => {
         dispatch(addNotification({
             level: TDNotificationLevel.SUCCESS,
-            header: 'Yeah !',
-            content: 'Todo added in your list'
+            content: 'Request submited'
         }));
-        dispatch(addTodo(todo));
-    },
-    onEmpty: () => dispatch(addNotification({
-        level: TDNotificationLevel.DANGER,
-        header: 'Oops !',
-        content: 'Please insert a label for your ticket'
-    })),
-    onExists: () => dispatch(addNotification({
-        level: TDNotificationLevel.WARNING,
-        header: 'Are you sure ?',
-        content: 'A ticket with the same label already exists.'
-    }))
+        dispatch(setRequest(request));
+    }
 }))(TDInput);

@@ -28,6 +28,16 @@ map[AT.REMOVE_NOTIFICATION] = (state, action) => ({
     notifications: state.notifications.filter(notification => notification !== action.payload)
 });
 
+map[AT.SET_REQUEST] = (state, action) => ({
+    ...state,
+    request: action.payload
+});
+
+map[AT.SET_SUGGESTION] = (state, action) => ({
+    ...state,
+    suggestion: action.payload
+});
+
 export default (state = initial, action) => {
     if (Object.keys(map).indexOf(action.type) > - 1) {
         return map[action.type](state, action);

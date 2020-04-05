@@ -4,6 +4,9 @@ export enum TDActionsTypes {
     
     ADD_NOTIFICATION = 'Add a new notification',
     REMOVE_NOTIFICATION = 'Remove a notification',
+    
+    SET_REQUEST = 'Set the requested resources',
+    SET_SUGGESTION = 'Set the returned suggestion',
 }
 
 export enum TDColors {

@@ -2,13 +2,15 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 
 import TDNotification from '../components/TDNotification';
-import { INotification } from '../interfaces';
+import { INotification, ISuggestion } from '../interfaces';
 import { removeNotification } from '../actions';
 import { TDActionsTypes } from '../enumerations';
 import TDInput from './TDInput';
+import TDOutput from '../components/TDOutput';
 import TDGrid from './TDGrid';
 
 class TDApplication extends React.Component<{
+  suggestion: ISuggestion,
   notifications: INotification[],
   onNotificationClicked: (n: TDNotification) => { type: TDActionsTypes, payload: INotification }
 }> {
@@ -50,6 +52,7 @@ class TDApplication extends React.Component<{
         <h1>Instant Todo</h1>
         <TDGrid />
         <TDInput />
+        <TDOutput suggestion={this.props.suggestion} />
         <div style={this.style.notifications} >
           {this.getNotifications()}
         </div>
@@ -59,6 +62,7 @@ class TDApplication extends React.Component<{
 }
 
 export default connect((state) => ({
+  suggestion: state.suggestion,
   notifications: state.notifications
 }), (dispatch, props) => ({
   onNotificationClicked: (notification: TDNotification) => dispatch(removeNotification(notification.model)),
