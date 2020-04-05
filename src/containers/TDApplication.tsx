@@ -18,11 +18,11 @@ class TDApplication extends React.Component<{
 
   private style = {
     img: {
-      height: '10%',
-      marginTop: '1%'
+      height: '100%',
+      marginRight: '5%'
     },
     main: new Style({
-        height: '50%'
+        height: '60%'
     }).flex().align('stretch').width('70%')
     .mobile(new Style({ height: 'auto'}).flex('column').center().width('100%').build())
     .build(),
@@ -59,9 +59,13 @@ class TDApplication extends React.Component<{
   public render() {
     return (
       <div style={this.style.root}>
-        <img style={this.style.img} src="/logo.png"/>
-        <h1>Agnostic 2 Cloud</h1>
-        <h4 style={({textAlign: 'center'})}>Small POC to map an agnostic compute requirement to a cloud provider product.</h4>
+        <div style={new Style({height: '10%'}).flex().center().width('100%').build()}>
+            <img style={this.style.img} src="/logo.png"/>
+            <h1>Agnostic 2 Cloud</h1>
+        </div>
+        <h4 style={({textAlign: 'center'})}>
+            Small POC to map an agnostic compute requirement to a cloud provider product
+        </h4>
         <ul>
             <li>Values are optional</li>
             <li>Values can only be numbers</li>
