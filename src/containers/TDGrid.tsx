@@ -63,7 +63,7 @@ class TDGrid extends React.Component<{
   }
 }
 
-export default connect((state) => ({
+export default connect((state: any) => ({
   elements: state.todos
 }), (dispatch, props) => ({
   onCompleteClicked: (element: ITodo) => {

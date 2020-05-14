@@ -87,7 +87,7 @@ class TDApplication extends React.Component<{
   }
 }
 
-export default connect((state) => ({
+export default connect((state: any) => ({
   suggestion: state.suggestion,
   notifications: state.notifications
 }), (dispatch, props) => ({
