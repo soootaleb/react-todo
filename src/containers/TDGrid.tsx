@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { ITodo } from '../interfaces';
+import { IState, ITodo } from '../interfaces';
 import { completeTodo, addNotification } from '../actions';
 import { TDActionsTypes, TDColors, TDNotificationLevel, TDTodoCategory } from '../enumerations';
 import { Style } from '../builder';
@@ -63,7 +63,7 @@ class TDGrid extends React.Component<{
   }
 }
 
-export default connect((state) => ({
+export default connect((state: IState) => ({
   elements: state.todos
 }), (dispatch, props) => ({
   onCompleteClicked: (element: ITodo) => {

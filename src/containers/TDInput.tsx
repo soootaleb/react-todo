@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { baseShadow } from '../styles';
 import TDButton from '../components/TDButton';
-import { ITodo, INotification } from '../interfaces';
+import { ITodo, INotification, IState } from '../interfaces';
 import { TDActionsTypes, TDNotificationLevel, TDTodoCategory } from '../enumerations';
 import { connect } from 'react-redux';
 import { addTodo, addNotification } from '../actions';
@@ -88,7 +88,7 @@ class TDInput extends React.Component<{
     }
 }
 
-export default connect((state) => ({
+export default connect((state: IState) => ({
     todos: state.todos
 }), (dispatch, props) => ({
     onAdd: (todo: ITodo) => {

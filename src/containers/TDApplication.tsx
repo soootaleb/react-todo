@@ -2,7 +2,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 
 import TDNotification from '../components/TDNotification';
-import { INotification } from '../interfaces';
+import { INotification, IState } from '../interfaces';
 import { removeNotification } from '../actions';
 import { TDActionsTypes } from '../enumerations';
 import TDInput from './TDInput';
@@ -58,7 +58,7 @@ class TDApplication extends React.Component<{
   }
 }
 
-export default connect((state) => ({
+export default connect((state: IState) => ({
   notifications: state.notifications
 }), (dispatch, props) => ({
   onNotificationClicked: (notification: TDNotification) => dispatch(removeNotification(notification.model)),

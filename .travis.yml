@@ -6,20 +6,20 @@ node_js:
 install:
 - npm install
 
-jobs:
-  include:
-    - stage: test
-      name: "Unit tests"
-      script: npm test
-    - stage: deploy
-      name: "Build & deploy on S3"
-      script: npm run build
-      deploy: &s3
-        provider: s3
-        access_key_id: $AWS_ACCESS_KEY_ID
-        secret_access_key: $AWS_SECRET_ACCESS_KEY
-        bucket: react-todo.yoyobro.wtf
-        skip_cleanup: true
-        acl: public_read
-        region: $AWS_DEFAULT_REGION
-        local_dir: build
+# jobs:
+#   include:
+#     - stage: test
+#       name: "Unit tests"
+#       script: npm test
+#     - stage: deploy
+#       name: "Build & deploy on S3"
+#       script: npm run build
+#       deploy: &s3
+#         provider: s3
+#         access_key_id: $AWS_ACCESS_KEY_ID
+#         secret_access_key: $AWS_SECRET_ACCESS_KEY
+#         bucket: react-todo.yoyobro.wtf
+#         skip_cleanup: true
+#         acl: public_read
+#         region: $AWS_DEFAULT_REGION
+#         local_dir: build
