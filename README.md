@@ -1,28 +1,62 @@
-  # React Todo [![Build Status](https://travis-ci.com/soootaleb/react-todo.svg?branch=master)](https://travis-ci.com/soootaleb/react-todo)
+# abcd UI
 
-This Todo App is a simple example to demonstrate React usage & my coding style. While many versions are available on the net, this implementation was made by me alone within several hours (on a sunday afternoon).
+This UI is developed for several objectives
 
-While my main projects are done through companies private projects, I'm not allowed to publish anything. So I implemented this code for people to get an overview of my frontend skills.
+- Educational purpose: manipulate & observe the behavior of a cluster using raft consensus protocol
+- Monitoring purpose: observe the behavior of a cluster under heavy load, split brain, loss of leader, etc...
+- Control purpose: add nodes & control their properties (e.g timeouts, network latency, peers, ...)
+- Testing / Debugging purpose: replay logs to better troubleshoot why a value is not consistent
 
-You can see the result at http://react-todo.yoyobro.wtf/
+# Getting Started
 
-## Tools
+Install dependencies
 
-Along with React JS, I used several packages:
+`yarn install``
 
-- RxJs & Redux Observables for async management (e.g notifications auto destruction)
-- CreateReactApp CLI (that's why there is no Webpack configuration)
-- Jest for unit testing
-- TypeScript over Javascript (for autocompletion & proper conventions between my components)
+Start the dev server
 
-## Style
+`yarn start`
 
-Please note that I separated containers & components. While this level of detail is not necessary on a simple Todo App, that's a practice a use a lot on bigger project.
+Go to http://localhost:3000/
 
-Also, I concentrated entities in simples files (reducers, epics, states, ...) because this app is small enought and won't scale. I always split files in dedicated folders for bigger projects.
+# TechStack
 
-## Next steps
+- ReactJS (TypeScript)
+- ReactRedux
+- ReduxObservables (RxJS)
 
-- Implementing a backend in order to push a bit more on network mechanics & data flow management.
-- Introducing my legendary skills with d3.js
-- Add functionnalities & more complex design.
+# Implemented
+
+- index.html
+- react basic start and redering with auto TypeScript / TSX transpiling
+- redux boilerplate with state, interface, reducer, epic, components, containers
+
+# Next Steps
+
+## Basic UI
+
+- Connect to a node
+- Display logs for this node
+- Connect to knownPeers
+- Display logs in tabs for all peers
+- Display graphical nodes
+- Display graphical connections between peers
+
+## Basic Graphics
+
+- Visualize heartbeats
+- Visualize nodes states (leader, follower, candidate)
+- Visualize callForVotes (request & responses considering the `voteGranted` value)
+
+## Advanced Graphics
+
+- Show store
+- Show WAL
+- Show store & WAL sync state
+- Show nodes store sync state
+- Show nodes WAL sync state
+
+# Know Issues
+
+- The code base has used for so many projects, not all the code is used (yet), some components are just examples
+- Unit tests do not pass (stack is not tested since it's not the goal of this project, maybe one day)
