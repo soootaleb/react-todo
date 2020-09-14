@@ -1,9 +1,13 @@
+
 export enum TDActionsTypes {
     ADD_TODO = 'Adding a todo',
     COMPLETE_TODO = 'Completing a todo',
     
     ADD_NOTIFICATION = 'Add a new notification',
     REMOVE_NOTIFICATION = 'Remove a notification',
+
+    CONNECT_WEBSOCKET = 'Connect the websocket',
+    MESSAGE_RECEIVED = 'Received a message via the websocket'
 }
 
 export enum TDColors {

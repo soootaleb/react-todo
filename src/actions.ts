@@ -22,3 +22,15 @@ export const removeNotification = (notification: INotification) => ({
     type: TDActionsTypes.REMOVE_NOTIFICATION,
     payload: notification
 });
+
+// WebSocket
+
+export const connectWebSocket = (url: string) => ({
+    type: TDActionsTypes.CONNECT_WEBSOCKET,
+    payload: url
+});
+
+export const messageReceived = (message: Object) => ({
+    type: TDActionsTypes.MESSAGE_RECEIVED,
+    payload: message
+});

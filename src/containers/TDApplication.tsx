@@ -2,13 +2,13 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 
 import TDNotification from '../components/TDNotification';
-import { INotification, IState } from '../interfaces';
+import { INode, INotification, IState } from '../interfaces';
 import { removeNotification } from '../actions';
 import { TDActionsTypes } from '../enumerations';
-import TDInput from './TDInput';
-import TDGrid from './TDGrid';
+import TDLogFlow from '../components/TDLogFlow';
 
 class TDApplication extends React.Component<{
+  nodes: {[key: string]: INode},
   notifications: INotification[],
   onNotificationClicked: (n: TDNotification) => { type: TDActionsTypes, payload: INotification }
 }> {
@@ -47,9 +47,12 @@ class TDApplication extends React.Component<{
   public render() {
     return (
       <div style={this.style.root}>
-        <h1>Instant Todo</h1>
-        <TDGrid />
-        <TDInput />
+        <h1>ABCD UI</h1>
+        {
+          Object.keys(this.props.nodes).map((key: string) => {
+            return <TDLogFlow key={key} node={this.props.nodes[key]} />;
+          })
+        }
         <div style={this.style.notifications} >
           {this.getNotifications()}
         </div>
@@ -59,6 +62,7 @@ class TDApplication extends React.Component<{
 }
 
 export default connect((state: IState) => ({
+  nodes: state.nodes,
   notifications: state.notifications
 }), (dispatch, props) => ({
   onNotificationClicked: (notification: TDNotification) => dispatch(removeNotification(notification.model)),
