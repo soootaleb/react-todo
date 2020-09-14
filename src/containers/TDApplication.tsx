@@ -3,13 +3,14 @@ import { connect } from 'react-redux';
 
 import TDNotification from '../components/TDNotification';
 import { INode, INotification, IState } from '../interfaces';
-import { removeNotification } from '../actions';
+import { connectWebSocket, removeNotification } from '../actions';
 import { TDActionsTypes } from '../enumerations';
 import TDLogFlow from '../components/TDLogFlow';
 
 class TDApplication extends React.Component<{
   nodes: {[key: string]: INode},
   notifications: INotification[],
+  onApplicationDidMount: (url: string) => { type: TDActionsTypes, payload: string },
   onNotificationClicked: (n: TDNotification) => { type: TDActionsTypes, payload: INotification }
 }> {
 
@@ -31,6 +32,10 @@ class TDApplication extends React.Component<{
       backgroundColor: 'transparent',
     }
   };
+
+  componentDidMount() {
+    this.props.onApplicationDidMount('ws://localhost:8080');
+  }
 
   private getNotifications(): JSX.Element[] {
     return this.props.notifications.map((notification: INotification, index) => {
@@ -65,5 +70,6 @@ export default connect((state: IState) => ({
   nodes: state.nodes,
   notifications: state.notifications
 }), (dispatch, props) => ({
+  onApplicationDidMount: (url: string) => dispatch(connectWebSocket(url)),
   onNotificationClicked: (notification: TDNotification) => dispatch(removeNotification(notification.model)),
 }))(TDApplication);

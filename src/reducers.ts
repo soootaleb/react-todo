@@ -28,13 +28,34 @@ map[AT.REMOVE_NOTIFICATION] = (state, action) => ({
     notifications: state.notifications.filter(notification => notification !== action.payload)
 });
 
-map[AT.MESSAGE_RECEIVED] = (state, action) => ({
+map[AT.MESSAGE_RECEIVED] = (state, action) => {
+    if (action.payload.message.type !== 'heartBeat') {
+        return {
+            ...state,
+            nodes: {
+                ...state.nodes,
+                [action.payload.nodePort]: {
+                    ...state.nodes[action.payload.nodePort],
+                    messages: Object.keys(state.nodes).indexOf(action.payload.nodePort) === -1 ?
+                        [action.payload.message] : [
+                            ...state.nodes[action.payload.nodePort].messages,
+                            action.payload.message
+                        ]
+                }
+            }
+        };
+    } else {
+        return state;
+    }
+};
+
+map[AT.NODE_CONNECTED] = (state, action) => ({
     ...state,
     nodes: {
         ...state.nodes,
-        [action.payload.nodePort]: {
-            ...state.nodes[action.payload.nodePort],
-            messages: [...state.nodes[action.payload.nodePort], action.payload.message]
+        [action.payload]: {
+            nodePort: action.payload,
+            messages: []
         }
     }
 });

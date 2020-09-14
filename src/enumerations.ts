@@ -6,6 +6,7 @@ export enum TDActionsTypes {
     ADD_NOTIFICATION = 'Add a new notification',
     REMOVE_NOTIFICATION = 'Remove a notification',
 
+    NODE_CONNECTED = 'Node connected',
     CONNECT_WEBSOCKET = 'Connect the websocket',
     MESSAGE_RECEIVED = 'Received a message via the websocket'
 }

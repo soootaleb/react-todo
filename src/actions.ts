@@ -1,4 +1,4 @@
-import { INotification, ITodo } from './interfaces';
+import { IMessage, INotification, ITodo } from './interfaces';
 import { TDActionsTypes } from './enumerations';
 
 // TODO 
@@ -30,7 +30,12 @@ export const connectWebSocket = (url: string) => ({
     payload: url
 });
 
-export const messageReceived = (message: Object) => ({
+export const nodeConnected = (nodePort: string) => ({
+    type: TDActionsTypes.NODE_CONNECTED,
+    payload: nodePort
+});
+
+export const messageReceived = (message: {nodePort: string, message: IMessage}) => ({
     type: TDActionsTypes.MESSAGE_RECEIVED,
     payload: message
 });

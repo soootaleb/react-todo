@@ -10,7 +10,14 @@ const connectWebSocketEpic = (action, store) => {
     return action.ofType(TDActionsTypes.CONNECT_WEBSOCKET)
         .switchMap(o => {
             ws = Observable.webSocket(o.payload);
-            return ws.map(messageReceived).catch(error => {
+            return ws.switchMap((message) => {
+                return Observable.from([
+                    messageReceived({
+                        nodePort: '8080',
+                        message: message
+                    })
+                ]);
+            }).catch(error => {
                 return Observable.of(addNotification({
                     level: TDNotificationLevel.DANGER,
                     header: 'Failed to connect WebSocket',
