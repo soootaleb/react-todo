@@ -3,14 +3,15 @@ import { connect } from 'react-redux';
 
 import TDNotification from '../components/TDNotification';
 import { INode, INotification, IState } from '../interfaces';
-import { connectWebSocket, removeNotification } from '../actions';
+import { removeNotification } from '../actions';
 import { TDActionsTypes } from '../enumerations';
 import TDLogFlow from '../components/TDLogFlow';
+import TDInput from './TDInput';
+import { Style } from '../builder';
 
 class TDApplication extends React.Component<{
   nodes: {[key: string]: INode},
   notifications: INotification[],
-  onApplicationDidMount: (url: string) => { type: TDActionsTypes, payload: string },
   onNotificationClicked: (n: TDNotification) => { type: TDActionsTypes, payload: INotification }
 }> {
 
@@ -30,12 +31,9 @@ class TDApplication extends React.Component<{
       position: 'absolute' as 'absolute',
       flexDirection: 'column' as 'column',
       backgroundColor: 'transparent',
-    }
+    },
+    logs: Style.flex().justify('flex-start').width('100%').build()
   };
-
-  componentDidMount() {
-    this.props.onApplicationDidMount('ws://localhost:8080');
-  }
 
   private getNotifications(): JSX.Element[] {
     return this.props.notifications.map((notification: INotification, index) => {
@@ -53,11 +51,14 @@ class TDApplication extends React.Component<{
     return (
       <div style={this.style.root}>
         <h1>ABCD UI</h1>
-        {
-          Object.keys(this.props.nodes).map((key: string) => {
-            return <TDLogFlow key={key} node={this.props.nodes[key]} />;
-          })
-        }
+        <TDInput />
+        <div style={this.style.logs}>
+          {
+            Object.keys(this.props.nodes).map((key: string) => {
+              return <TDLogFlow key={key} node={this.props.nodes[key]} />;
+            })
+          }
+        </div>
         <div style={this.style.notifications} >
           {this.getNotifications()}
         </div>
@@ -70,6 +71,5 @@ export default connect((state: IState) => ({
   nodes: state.nodes,
   notifications: state.notifications
 }), (dispatch, props) => ({
-  onApplicationDidMount: (url: string) => dispatch(connectWebSocket(url)),
   onNotificationClicked: (notification: TDNotification) => dispatch(removeNotification(notification.model)),
 }))(TDApplication);

@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Style } from '../builder';
 import { IMessage } from '../interfaces';
 import { baseShadow } from '../styles';
 
@@ -7,11 +8,10 @@ export default class TDLog extends React.Component<{
 }> {
 
     private style = (self: TDLog) => ({
-        root: {
+        root: new Style({
             ...baseShadow,
             borderRadius: 3,
-            width: '100%',
-            paddingLeft: 10,
+            padding: 10,
             boxSizing: 'border-box ',
             listStyleType: 'none',
             display: 'flex',
@@ -20,7 +20,7 @@ export default class TDLog extends React.Component<{
             position: 'relative' as 'relative',
             marginTop: 10,
             backgroundColor: 'white'
-        }
+        }).width('100%').build()
     })
 
     public render() {

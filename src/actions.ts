@@ -2,10 +2,6 @@ import { IMessage, INotification, ITodo } from './interfaces';
 import { TDActionsTypes } from './enumerations';
 
 // TODO 
-export const addTodo = (todo: ITodo) => ({
-    type: TDActionsTypes.ADD_TODO,
-    payload: todo
-});
 
 export const completeTodo = (todo: ITodo) => ({
     type: TDActionsTypes.COMPLETE_TODO,
@@ -30,9 +26,14 @@ export const connectWebSocket = (url: string) => ({
     payload: url
 });
 
-export const nodeConnected = (nodePort: string) => ({
-    type: TDActionsTypes.NODE_CONNECTED,
-    payload: nodePort
+export const addNode = (node: string) => ({
+    type: TDActionsTypes.ADD_NODE,
+    payload: node
+});
+
+export const removeNode = (node: string) => ({
+    type: TDActionsTypes.REMOVE_NODE,
+    payload: node
 });
 
 export const messageReceived = (message: {nodePort: string, message: IMessage}) => ({

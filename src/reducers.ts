@@ -29,27 +29,22 @@ map[AT.REMOVE_NOTIFICATION] = (state, action) => ({
 });
 
 map[AT.MESSAGE_RECEIVED] = (state, action) => {
-    if (action.payload.message.type !== 'heartBeat') {
-        return {
-            ...state,
-            nodes: {
-                ...state.nodes,
-                [action.payload.nodePort]: {
-                    ...state.nodes[action.payload.nodePort],
-                    messages: Object.keys(state.nodes).indexOf(action.payload.nodePort) === -1 ?
-                        [action.payload.message] : [
-                            ...state.nodes[action.payload.nodePort].messages,
-                            action.payload.message
-                        ]
-                }
+    return {
+        ...state,
+        nodes: {
+            ...state.nodes,
+            [action.payload.nodePort]: {
+                ...state.nodes[action.payload.nodePort],
+                messages: [
+                    ...state.nodes[action.payload.nodePort].messages,
+                    action.payload.message.payload.message
+                ]
             }
-        };
-    } else {
-        return state;
-    }
+        }
+    };
 };
 
-map[AT.NODE_CONNECTED] = (state, action) => ({
+map[AT.ADD_NODE] = (state, action) => ({
     ...state,
     nodes: {
         ...state.nodes,
@@ -59,6 +54,15 @@ map[AT.NODE_CONNECTED] = (state, action) => ({
         }
     }
 });
+
+map[AT.REMOVE_NODE] = (state, action) => {
+    let o = { ...state.nodes };
+    delete o[action.payload];
+    return {
+        ...state,
+        nodes: o
+    };
+};
 
 export default (state = initial, action) => {
     if (Object.keys(map).indexOf(action.type) > - 1) {

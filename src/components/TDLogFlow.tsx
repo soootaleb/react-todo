@@ -8,6 +8,10 @@ export default class TDLogFlow extends React.Component<{
   node: INode
 }> {
 
+  private get messages(): IMessage[] {
+    return this.props.node.messages.filter((message: IMessage) => message.type !== 'heartBeat');
+  }
+
   private style = {
     root: new Style({
       height: 'auto',
@@ -17,7 +21,7 @@ export default class TDLogFlow extends React.Component<{
       display: 'flex',
       alignItems: 'center' as 'center',
       flexDirection: 'column' as 'column',
-    }).width('95%').build(),
+    }).width('30%').build(),
     noTodos: {
       color: TDColors.MINOR,
       fontWeight: 100 as 100
@@ -25,18 +29,19 @@ export default class TDLogFlow extends React.Component<{
   };
 
   private getElements(): JSX.Element[] {
-    return this.props.node.messages.map((log: IMessage, index) => {
-      return (
-        <TDLog
-          key={Math.random() * (index + 1)}
-          log={log}
-        />
-      );
-    });
+    return this.messages.map((log: IMessage, index) => {
+        return (
+          <TDLog
+            key={JSON.stringify(log) + '-' + index.toString()}
+            // key={Math.random() * (index + 1)}
+            log={log}
+          />
+        );
+      });
   }
 
   public render() {
-    if (this.props.node.messages.length > 0) {
+    if (this.messages.length > 0) {
       return (
         <ul style={this.style.root}>
           {this.getElements()}

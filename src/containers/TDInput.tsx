@@ -4,12 +4,12 @@ import TDButton from '../components/TDButton';
 import { ITodo, INotification, IState } from '../interfaces';
 import { TDActionsTypes, TDNotificationLevel, TDTodoCategory } from '../enumerations';
 import { connect } from 'react-redux';
-import { addTodo, addNotification } from '../actions';
+import { addNotification, connectWebSocket } from '../actions';
 import { Style } from '../builder';
 
 class TDInput extends React.Component<{
     todos: ITodo[],
-    onAdd: (todo: ITodo) => ({ type: TDActionsTypes, payload: ITodo })
+    onAdd: (peerPort: string) => ({ type: TDActionsTypes, payload: string })
     onEmpty: () => ({ type: TDActionsTypes, payload: INotification })
     onExists: () => ({ type: TDActionsTypes, payload: INotification })
 }> {
@@ -49,10 +49,7 @@ class TDInput extends React.Component<{
         })) {
             this.props.onExists();
         } else if (this.state.value !== '') {
-            this.props.onAdd({
-                label: this.state.value,
-                category: TDTodoCategory.TODO
-            });
+            this.props.onAdd(this.state.value);
             this.setState({value: ''});
         } else {
             this.props.onEmpty();
@@ -91,13 +88,8 @@ class TDInput extends React.Component<{
 export default connect((state: IState) => ({
     todos: state.todos
 }), (dispatch, props) => ({
-    onAdd: (todo: ITodo) => {
-        dispatch(addNotification({
-            level: TDNotificationLevel.SUCCESS,
-            header: 'Yeah !',
-            content: 'Todo added in your list'
-        }));
-        dispatch(addTodo(todo));
+    onAdd: (peerPort: string) => {
+        dispatch(connectWebSocket(peerPort.replace(':', '')));
     },
     onEmpty: () => dispatch(addNotification({
         level: TDNotificationLevel.DANGER,
