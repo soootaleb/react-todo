@@ -62,7 +62,7 @@ export default class ABNodeMessages extends React.Component<{
     }).flex().center().width('30px').build(),
 
     peer: new Style({
-      backgroundColor: ABColors.MINOR,
+      backgroundColor: ABColors.DARK,
       color: ABColors.WHITE,
       borderRadius: '5px',
       marginRight: '10px'
