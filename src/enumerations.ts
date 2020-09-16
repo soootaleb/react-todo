@@ -22,6 +22,10 @@ export enum ABColors {
     BLACK = '#000000',
     WHITE = '#FFFFFF',
 
+    LEADER = '#ff5722',
+    FOLLOWER = '#ffccbc',
+    CANDIDATE = '#651fff',
+
     INFO = 'lightblue',
     DANGER = '#FF5252',
     SUCCESS = '#B2FF59',

@@ -15,7 +15,8 @@ export default class ABNodeMessages extends React.Component<{
   private style = (self: ABNodeMessages) => ({
     root: new Style({
       ...baseShadow,
-      height: '650px',
+      height: '300px',
+      marginBottom: '10px'
     }).padding('5px')
     .flex('column')
     .width('31%')
@@ -31,15 +32,16 @@ export default class ABNodeMessages extends React.Component<{
     .build(),
 
     nodeName: new Style({
+      color: this.props.node.theme.primary,
       fontSize: '30px',
       fontWeight: 'bold'
     }).build(),
     state: new Style({
       ...baseShadow,
       color: ABColors.WHITE,
-      backgroundColor: self.props.node.state === undefined ? ABColors.WHITE :
+      backgroundColor: self.props.node.state === undefined ? ABColors.MINOR :
         self.props.node.state.state === 'leader' ?
-        ABColors.PRIMARY : self.props.node.state.state === 'candidate' ? ABColors.CATCHY : ABColors.SECONDARY
+        ABColors.LEADER : self.props.node.state.state === 'candidate' ? ABColors.CANDIDATE : ABColors.FOLLOWER
     }).padding('5px 10px').build(),
 
     peers: new Style({
@@ -54,7 +56,7 @@ export default class ABNodeMessages extends React.Component<{
     headerLeft: Style.flex().center().build(),
     term: new Style({
       marginLeft: '10px',
-      backgroundColor: self.props.node.state.term === -1 ? ABColors.DANGER : self.props.node.theme.minor,
+      backgroundColor: self.props.node.state.term === -1 ? ABColors.DANGER : ABColors.MINOR,
       borderRadius: '30px',
       height: '30px',
       textAlign: 'center',
@@ -64,9 +66,9 @@ export default class ABNodeMessages extends React.Component<{
     peer: new Style({
       backgroundColor: ABColors.DARK,
       color: ABColors.WHITE,
-      borderRadius: '5px',
+      borderRadius: '50px',
       marginRight: '10px'
-    }).padding('5px').build()
+    }).padding('2px 10px').build()
   })
 
   private getPeerStyle(peer: string) {
@@ -88,7 +90,7 @@ export default class ABNodeMessages extends React.Component<{
             <div style={this.style(this).nodeName}>{this.props.node.nodePort}</div>
             <span style={this.style(this).term}>{this.props.node.state.term}</span>
           </div>
-          <div style={this.style(this).state}>{this.props.node.state.state}</div>
+          <div style={this.style(this).state}>{this.props.node.state.state.toUpperCase()}</div>
         </div>
         <div style={this.style(this).peers}>
           {
@@ -100,12 +102,12 @@ export default class ABNodeMessages extends React.Component<{
               'No peers connected'
           }
         </div>
-        <ABLogFlow node={this.props.node} />
+        <ABLogFlow node={this.props.node} nodes={this.props.nodes}/>
         <div style={this.style(this).actions}>
-          <ABButton theme={this.props.node.theme} label="Kill"onClick={console.log}/>
-          <ABButton theme={this.props.node.theme} label="Set Leader" onClick={console.log}/>
-          <ABButton theme={this.props.node.theme} label="Set Follower" onClick={console.log}/>
-          <ABButton theme={this.props.node.theme} label="Set Candidate" onClick={console.log}/>
+          <ABButton label="Kill"onClick={console.log}/>
+          <ABButton label="Set Leader" onClick={console.log}/>
+          <ABButton label="Set Follower" onClick={console.log}/>
+          <ABButton label="Set Candidate" onClick={console.log}/>
         </div>
         
       </div>

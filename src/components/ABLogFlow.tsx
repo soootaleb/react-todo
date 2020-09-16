@@ -5,7 +5,8 @@ import { Style } from '../builder';
 import ABLog from './ABLog';
 
 export default class ABLogFlow extends React.Component<{
-  node: INode
+  node: INode,
+  nodes: {[key: string]: INode}
 }> {
 
   private ul: HTMLUListElement;
@@ -36,6 +37,8 @@ export default class ABLogFlow extends React.Component<{
         <ABLog
           key={index}
           log={log}
+          nodes={this.props.nodes}
+          node={this.props.node}
         />
       );
     });

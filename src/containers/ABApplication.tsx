@@ -33,7 +33,9 @@ class ABApplication extends React.Component<{
       flexDirection: 'column' as 'column',
       backgroundColor: 'transparent',
     },
-    nodes: Style.flex().justify('space-around').width('100%').build(),
+    nodes: new Style({
+      flexWrap: 'wrap'
+    }).flex().justify('space-around').width('100%').build(),
 
     header: new Style({
       boxSizing: 'border-box'
