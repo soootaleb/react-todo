@@ -1,8 +1,10 @@
 import * as React from 'react';
+import { ITheme } from '../interfaces';
 import { baseShadow, buttonBackground } from '../styles';
 
 export default class ABButton extends React.Component<{
     label?: string,
+    theme?: ITheme,
     onClick: any
 }> {
 

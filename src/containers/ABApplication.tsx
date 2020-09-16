@@ -71,7 +71,7 @@ class ABApplication extends React.Component<{
         <div style={this.style.nodes}>
           {
             Object.keys(this.props.nodes).map((key: string) => {
-              return <ABNodeMessages key={key} node={this.props.nodes[key]} />;
+              return <ABNodeMessages key={key} node={this.props.nodes[key]} nodes={this.props.nodes}/>;
             })
           }
         </div>
@@ -89,8 +89,8 @@ export default connect((state: IState) => ({
 }), (dispatch, props) => ({
   onApplicationStart: () => {
     dispatch(connectWebSocket('8080'));
-    dispatch(connectWebSocket('55423'));
-    dispatch(connectWebSocket('55426'));
+    dispatch(connectWebSocket('59811'));
+    dispatch(connectWebSocket('59813'));
   },
   onNotificationClicked: (notification: ABNotification) => dispatch(removeNotification(notification.model)),
 }))(ABApplication);

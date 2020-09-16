@@ -1,8 +1,15 @@
 import initial from './states';
 import { ABActionsTypes as AT } from './enumerations';
-import { IMessage } from './interfaces';
+import { IMessage, ITheme } from './interfaces';
 
 const map = {};
+
+const themes: ITheme[] = [
+    { primary: '#3f51b5', secondary: '#5c6bc0', minor: '#7986cb', catchy: '#3d5afe' },
+    { primary: '#e91e63', secondary: '#ec407a', minor: '#f06292', catchy: '#f50057' },
+    { primary: '#ff9800', secondary: '#ffa726', minor: '#ffb74d', catchy: '#ff9100' },
+    { primary: '#009688', secondary: '#26a69a', minor: '#4db6ac', catchy: '#1de9b6' }
+];
 
 map[AT.ADD_NOTIFICATION] = (state, action) => ({
     ...state,
@@ -45,7 +52,8 @@ map[AT.ADD_NODE] = (state, action) => ({
                 peers: []
             },
             nodePort: action.payload,
-            messages: []
+            messages: [],
+            theme: themes[Object.keys(state.nodes).length]
         }
     }
 });

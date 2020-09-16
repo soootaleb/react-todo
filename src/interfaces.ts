@@ -14,11 +14,12 @@ export interface INode {
         state: string,
         peers: string[],
     },
+    theme: ITheme,
     messages: IMessage[]
 }
 
 export interface IState {
-    nodes: {[key: string]: INode},
+    nodes: { [key: string]: INode },
     notifications: INotification[],
 }
 
@@ -26,4 +27,11 @@ export interface INotification {
     level?: ABNotificationLevel;
     header?: string;
     content: string;
+}
+
+export interface ITheme {
+    primary: string,
+    secondary: string,
+    minor: string,
+    catchy: string
 }
