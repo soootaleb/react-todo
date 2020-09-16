@@ -36,7 +36,7 @@ export const removeNode = (node: string) => ({
     payload: node
 });
 
-export const messageReceived = (message: {nodePort: string, message: IMessage}) => ({
+export const messageReceived = (message: IMessage<{message: IMessage}>) => ({
     type: TDActionsTypes.MESSAGE_RECEIVED,
     payload: message
 });

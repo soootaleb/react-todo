@@ -1,5 +1,6 @@
 import initial from './states';
 import { TDActionsTypes as AT, TDTodoCategory } from './enumerations';
+import { IMessage } from './interfaces';
 
 const map = {};
 
@@ -29,15 +30,16 @@ map[AT.REMOVE_NOTIFICATION] = (state, action) => ({
 });
 
 map[AT.MESSAGE_RECEIVED] = (state, action) => {
+    const message: IMessage<{message: IMessage}> = action.payload;
     return {
         ...state,
         nodes: {
             ...state.nodes,
-            [action.payload.nodePort]: {
-                ...state.nodes[action.payload.nodePort],
+            [message.source]: {
+                ...state.nodes[message.source],
                 messages: [
-                    ...state.nodes[action.payload.nodePort].messages,
-                    action.payload.message.payload.message
+                    ...state.nodes[message.source].messages,
+                    message.payload.message
                 ]
             }
         }

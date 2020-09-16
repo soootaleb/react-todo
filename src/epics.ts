@@ -16,11 +16,24 @@ const connectWebSocketEpic = (action, store) => {
                         content: o.payload
                     })
                 ]), Observable.webSocket('ws://127.0.0.1:' + o.payload)
-                    .map((message: IMessage) => {
-                        return messageReceived({
-                            nodePort: o.payload,
-                            message: message
-                        });
+                    .map((message: IMessage<{message: IMessage}>) => {
+                        /**
+                         * Message is wrapped on the backend like this
+                         * It means that front receives a regular message but
+                         * - source is the node sending the message to the UI
+                         * - destination is "ui"
+                         * - payload is the actual message that the node wants to forward
+                         * 
+                         * this.messages.setValue({
+                         *     type: "uiLogMessage",
+                         *     source: this.net.port,
+                         *     destination: "ui",
+                         *     payload: {
+                         *     message: message
+                         *     }
+                         * })
+                         */
+                        return messageReceived(message);
                     }).catch(error => {
                         return Observable.from([
                             removeNode(o.payload),
