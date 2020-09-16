@@ -18,7 +18,7 @@ const connectWebSocketEpic = (action, store) => {
                 ]), Observable.webSocket('ws://127.0.0.1:' + o.payload)
                     .map((message: IMessage) => {
                         return messageReceived({
-                            nodePort: message.source,
+                            nodePort: o.payload,
                             message: message
                         });
                     }).catch(error => {
