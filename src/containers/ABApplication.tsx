@@ -5,9 +5,9 @@ import ABNotification from '../components/ABNotification';
 import { INode, INotification, IState } from '../interfaces';
 import { removeNotification } from '../actions';
 import { ABActionsTypes } from '../enumerations';
-import ABLogFlow from '../components/ABLogFlow';
 import ABInput from './ABInput';
 import { Style } from '../builder';
+import ABNodeMessages from '../components/ABNodeMessages';
 
 class ABApplication extends React.Component<{
   nodes: {[key: string]: INode},
@@ -32,7 +32,7 @@ class ABApplication extends React.Component<{
       flexDirection: 'column' as 'column',
       backgroundColor: 'transparent',
     },
-    logs: Style.flex().justify('flex-start').width('100%').build()
+    nodes: Style.flex().justify('space-around').width('100%').build()
   };
 
   private getNotifications(): JSX.Element[] {
@@ -52,10 +52,10 @@ class ABApplication extends React.Component<{
       <div style={this.style.root}>
         <h1>ABCD UI</h1>
         <ABInput />
-        <div style={this.style.logs}>
+        <div style={this.style.nodes}>
           {
             Object.keys(this.props.nodes).map((key: string) => {
-              return <ABLogFlow key={key} node={this.props.nodes[key]} />;
+              return <ABNodeMessages key={key} node={this.props.nodes[key]} />;
             })
           }
         </div>

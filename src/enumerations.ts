@@ -18,9 +18,11 @@ export enum ABColors {
     MINOR = '#E1BEE7',
     CATCHY = '#AA00FF',
 
+    DARK  = '#121212',
     BLACK = '#000000',
     WHITE = '#FFFFFF',
 
+    INFO = 'lightblue',
     DANGER = '#FF5252',
     SUCCESS = '#B2FF59',
     WARNING = '#FFFF00',

@@ -9,6 +9,11 @@ export interface IMessage<T = Object> {
 
 export interface INode {
     nodePort: string,
+    state: {
+        term: number,
+        state: string,
+        peers: string[],
+    },
     messages: IMessage[]
 }
 

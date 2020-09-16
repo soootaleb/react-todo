@@ -15,13 +15,16 @@ map[AT.REMOVE_NOTIFICATION] = (state, action) => ({
 });
 
 map[AT.MESSAGE_RECEIVED] = (state, action) => {
-    const message: IMessage<{message: IMessage}> = action.payload;
+    const message: IMessage<{ message: IMessage<any> }> = action.payload;
     return {
         ...state,
         nodes: {
             ...state.nodes,
             [message.source]: {
                 ...state.nodes[message.source],
+                state: message.payload.message.type === 'uiStateUpdate' ?
+                    { ...message.payload.message.payload } :
+                    { ...state.nodes[message.source].state },
                 messages: [
                     ...state.nodes[message.source].messages,
                     message.payload.message
@@ -36,6 +39,11 @@ map[AT.ADD_NODE] = (state, action) => ({
     nodes: {
         ...state.nodes,
         [action.payload]: {
+            state: {
+                term: -1,
+                state: 'not connected',
+                peers: []
+            },
             nodePort: action.payload,
             messages: []
         }

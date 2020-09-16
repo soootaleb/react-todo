@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Style } from '../builder';
+import { ABColors } from '../enumerations';
 import { IMessage } from '../interfaces';
-import { baseShadow } from '../styles';
 
 export default class ABLog extends React.Component<{
     log: IMessage
@@ -9,9 +9,9 @@ export default class ABLog extends React.Component<{
 
     private style = (self: ABLog) => ({
         root: new Style({
-            ...baseShadow,
             borderRadius: 3,
             padding: 10,
+            color: ABColors.WHITE,
             boxSizing: 'border-box ',
             listStyleType: 'none',
             display: 'flex',
@@ -19,8 +19,8 @@ export default class ABLog extends React.Component<{
             alignItems: 'center' as 'center',
             position: 'relative' as 'relative',
             marginTop: 10,
-            backgroundColor: 'white'
-        }).width('100%').build()
+            backgroundColor: 'transparent'
+        }).width('auto').build()
     })
 
     public render() {

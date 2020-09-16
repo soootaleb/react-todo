@@ -8,47 +8,48 @@ export default class ABLogFlow extends React.Component<{
   node: INode
 }> {
 
+  private ul: HTMLUListElement;
+
   private get messages(): IMessage[] {
-    return this.props.node.messages.filter((message: IMessage) => message.type !== 'heartBeat');
+    return this.props.node.messages.filter((message: IMessage<IMessage>) => {
+      return message.payload.type !== 'heartBeat'
+        && message.type !== 'uiStateUpdate';
+    });
   }
 
   private style = {
     root: new Style({
-      height: 'auto',
-      padding: 0,
       margin: 0,
-      marginBottom: '5%',
-      display: 'flex',
-      alignItems: 'center' as 'center',
-      flexDirection: 'column' as 'column',
-    }).width('30%').build(),
-    noTodos: {
-      color: ABColors.MINOR,
+      padding: 0,
+      overflow: 'scroll' as 'scroll',
+      backgroundColor: ABColors.DARK,
+    }).flex('column').expand().align('flex-start').build(),
+    noMessages: {
+      color: ABColors.WHITE,
       fontWeight: 100 as 100
     }
   };
 
   private getElements(): JSX.Element[] {
     return this.messages.map((log: IMessage, index) => {
-        return (
-          <ABLog
-            key={JSON.stringify(log) + '-' + index.toString()}
-            // key={Math.random() * (index + 1)}
-            log={log}
-          />
-        );
-      });
+      return (
+        <ABLog
+          key={index}
+          log={log}
+        />
+      );
+    });
   }
 
   public render() {
     if (this.messages.length > 0) {
       return (
-        <ul style={this.style.root}>
+        <ul ref={(el: HTMLUListElement) => this.ul = el} style={this.style.root}>
           {this.getElements()}
         </ul>
       );
     } else {
-      return <p style={this.style.noTodos}>No logs for the moment</p>;
+      return <p style={this.style.noMessages}>No logs for the moment</p>;
     }
   }
 }
