@@ -6,7 +6,7 @@ import { IMessage } from './interfaces';
 
 const connectWebSocketEpic = (action, store) => {
     return action.ofType(ABActionsTypes.CONNECT_WEBSOCKET)
-        .switchMap(o => {
+        .mergeMap(o => {
             return Observable.concat(
                 Observable.from([
                     addNode(o.payload),
