@@ -3,11 +3,11 @@ import { Style } from '../builder';
 import { IMessage } from '../interfaces';
 import { baseShadow } from '../styles';
 
-export default class TDLog extends React.Component<{
+export default class ABLog extends React.Component<{
     log: IMessage
 }> {
 
-    private style = (self: TDLog) => ({
+    private style = (self: ABLog) => ({
         root: new Style({
             ...baseShadow,
             borderRadius: 3,

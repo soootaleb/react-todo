@@ -1,17 +1,17 @@
 import { combineEpics } from 'redux-observable';
-import { TDActionsTypes, TDNotificationLevel } from './enumerations';
+import { ABActionsTypes, ABNotificationLevel } from './enumerations';
 import { addNotification, messageReceived, addNode, removeNode, removeNotification } from './actions';
 import { Observable } from 'rxjs';
 import { IMessage } from './interfaces';
 
 const connectWebSocketEpic = (action, store) => {
-    return action.ofType(TDActionsTypes.CONNECT_WEBSOCKET)
+    return action.ofType(ABActionsTypes.CONNECT_WEBSOCKET)
         .switchMap(o => {
             return Observable.concat(
                 Observable.from([
                     addNode(o.payload),
                     addNotification({
-                        level: TDNotificationLevel.SUCCESS,
+                        level: ABNotificationLevel.SUCCESS,
                         header: 'WebSocket connected',
                         content: o.payload
                     })
@@ -38,7 +38,7 @@ const connectWebSocketEpic = (action, store) => {
                         return Observable.from([
                             removeNode(o.payload),
                             addNotification({
-                                level: TDNotificationLevel.DANGER,
+                                level: ABNotificationLevel.DANGER,
                                 header: 'WebSocket not connected',
                                 content: error.target.url
                             })
@@ -49,7 +49,7 @@ const connectWebSocketEpic = (action, store) => {
 };
 
 const removeNotificationEpic = (action, store) => {
-    return action.ofType(TDActionsTypes.ADD_NOTIFICATION)
+    return action.ofType(ABActionsTypes.ADD_NOTIFICATION)
         .delay(3000)
         .map(o => removeNotification(o.payload));
 };

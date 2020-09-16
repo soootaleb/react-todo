@@ -1,18 +1,18 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 
-import TDNotification from '../components/TDNotification';
+import ABNotification from '../components/ABNotification';
 import { INode, INotification, IState } from '../interfaces';
 import { removeNotification } from '../actions';
-import { TDActionsTypes } from '../enumerations';
-import TDLogFlow from '../components/TDLogFlow';
-import TDInput from './TDInput';
+import { ABActionsTypes } from '../enumerations';
+import ABLogFlow from '../components/ABLogFlow';
+import ABInput from './ABInput';
 import { Style } from '../builder';
 
-class TDApplication extends React.Component<{
+class ABApplication extends React.Component<{
   nodes: {[key: string]: INode},
   notifications: INotification[],
-  onNotificationClicked: (n: TDNotification) => { type: TDActionsTypes, payload: INotification }
+  onNotificationClicked: (n: ABNotification) => { type: ABActionsTypes, payload: INotification }
 }> {
 
   private style = {
@@ -38,7 +38,7 @@ class TDApplication extends React.Component<{
   private getNotifications(): JSX.Element[] {
     return this.props.notifications.map((notification: INotification, index) => {
       return (
-        <TDNotification
+        <ABNotification
           onClick={this.props.onNotificationClicked}
           key={Math.random() * (index + 1)}
           notification={notification}
@@ -51,11 +51,11 @@ class TDApplication extends React.Component<{
     return (
       <div style={this.style.root}>
         <h1>ABCD UI</h1>
-        <TDInput />
+        <ABInput />
         <div style={this.style.logs}>
           {
             Object.keys(this.props.nodes).map((key: string) => {
-              return <TDLogFlow key={key} node={this.props.nodes[key]} />;
+              return <ABLogFlow key={key} node={this.props.nodes[key]} />;
             })
           }
         </div>
@@ -71,5 +71,5 @@ export default connect((state: IState) => ({
   nodes: state.nodes,
   notifications: state.notifications
 }), (dispatch, props) => ({
-  onNotificationClicked: (notification: TDNotification) => dispatch(removeNotification(notification.model)),
-}))(TDApplication);
+  onNotificationClicked: (notification: ABNotification) => dispatch(removeNotification(notification.model)),
+}))(ABApplication);

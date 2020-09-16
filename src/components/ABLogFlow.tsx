@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { IMessage, INode } from '../interfaces';
-import { TDColors } from '../enumerations';
+import { ABColors } from '../enumerations';
 import { Style } from '../builder';
-import TDLog from './TDLog';
+import ABLog from './ABLog';
 
-export default class TDLogFlow extends React.Component<{
+export default class ABLogFlow extends React.Component<{
   node: INode
 }> {
 
@@ -23,7 +23,7 @@ export default class TDLogFlow extends React.Component<{
       flexDirection: 'column' as 'column',
     }).width('30%').build(),
     noTodos: {
-      color: TDColors.MINOR,
+      color: ABColors.MINOR,
       fontWeight: 100 as 100
     }
   };
@@ -31,7 +31,7 @@ export default class TDLogFlow extends React.Component<{
   private getElements(): JSX.Element[] {
     return this.messages.map((log: IMessage, index) => {
         return (
-          <TDLog
+          <ABLog
             key={JSON.stringify(log) + '-' + index.toString()}
             // key={Math.random() * (index + 1)}
             log={log}

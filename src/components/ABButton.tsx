@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { baseShadow, buttonBackground } from '../styles';
 
-export default class TDButton extends React.Component<{
+export default class ABButton extends React.Component<{
     label?: string,
     onClick: any
 }> {
@@ -10,7 +10,7 @@ export default class TDButton extends React.Component<{
         hover: false
     };
 
-    private style = (self: TDButton) => ({
+    private style = (self: ABButton) => ({
         ...baseShadow, // This a static mixin
         ...buttonBackground(self), // This is a functionnal mixin
         width: 'auto',

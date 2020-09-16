@@ -49,8 +49,8 @@ export class Style {
     public flex(direction: 'row' | 'column' = 'row'): Style {
         const msMatch = 'screen and (-ms-high-contrast: active), (-ms-high-contrast: none)';
         const microsoft: boolean = matchMedia(msMatch).matches;
-        this.style.display = microsoft ? '-ms-flexbox' as '-ms-flexbox' : 'flex' as 'flex',
-        this.style.MsFlexDirection = direction,
+        this.style.display = microsoft ? '-ms-flexbox' as '-ms-flexbox' : 'flex' as 'flex';
+        this.style.MsFlexDirection = direction;
         this.style.flexDirection = direction;
         return this;
     }

@@ -1,5 +1,5 @@
 
-export enum TDActionsTypes {
+export enum ABActionsTypes {
     ADD_TODO = 'Adding a todo',
     COMPLETE_TODO = 'Completing a todo',
     
@@ -12,7 +12,7 @@ export enum TDActionsTypes {
     MESSAGE_RECEIVED = 'Received a message via the websocket'
 }
 
-export enum TDColors {
+export enum ABColors {
     PRIMARY = '#9C27B0',
     SECONDARY = '#BA68C8',
     MINOR = '#E1BEE7',
@@ -26,16 +26,9 @@ export enum TDColors {
     WARNING = '#FFFF00',
 }
 
-export enum TDNotificationLevel {
+export enum ABNotificationLevel {
     INFO = 'Information notification',
     DANGER = 'Danger notification',
     SUCCESS = 'Success notification',
     WARNING = 'Warning notification',
-}
-
-export enum TDTodoCategory {
-    TODO = 'To do',
-    DOING = 'Doing',
-    DONE = 'Done',
-    NULL = 'Null todo',
 }

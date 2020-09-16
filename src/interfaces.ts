@@ -1,4 +1,4 @@
-import { TDNotificationLevel, TDTodoCategory } from './enumerations';
+import { ABNotificationLevel } from './enumerations';
 
 export interface IMessage<T = Object> {
     type: string,
@@ -13,18 +13,12 @@ export interface INode {
 }
 
 export interface IState {
-    todos: ITodo[],
     nodes: {[key: string]: INode},
     notifications: INotification[],
 }
 
-export interface ITodo {
-    label: string;
-    category: TDTodoCategory;
-}
-
 export interface INotification {
-    level?: TDNotificationLevel;
+    level?: ABNotificationLevel;
     header?: string;
     content: string;
 }

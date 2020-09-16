@@ -1,40 +1,40 @@
 import * as React from 'react';
 import { baseShadow } from '../styles';
-import { TDNotificationLevel, TDColors, TDActionsTypes } from '../enumerations';
+import { ABNotificationLevel, ABColors, ABActionsTypes } from '../enumerations';
 import { INotification } from '../interfaces';
 
-export default class TDNotification extends React.Component<{
+export default class ABNotification extends React.Component<{
     notification: INotification,
-    onClick: (notification: TDNotification) => { type: TDActionsTypes, payload: INotification }
+    onClick: (notification: ABNotification) => { type: ABActionsTypes, payload: INotification }
 }> {
 
     public get model(): INotification {
         return this.props.notification;
     }
 
-    private getBackgroundColor(level: TDNotificationLevel | undefined): TDColors {
+    private getBackgroundColor(level: ABNotificationLevel | undefined): ABColors {
         switch (level) {
-            case TDNotificationLevel.INFO:
-                return TDColors.PRIMARY;
-            case TDNotificationLevel.DANGER:
-                return TDColors.DANGER;
-            case TDNotificationLevel.SUCCESS:
-                return TDColors.SUCCESS;
-            case TDNotificationLevel.WARNING:
-                return TDColors.WARNING;
+            case ABNotificationLevel.INFO:
+                return ABColors.PRIMARY;
+            case ABNotificationLevel.DANGER:
+                return ABColors.DANGER;
+            case ABNotificationLevel.SUCCESS:
+                return ABColors.SUCCESS;
+            case ABNotificationLevel.WARNING:
+                return ABColors.WARNING;
             default:
-                return TDColors.PRIMARY;
+                return ABColors.PRIMARY;
         }
     }
 
-    private getFontColor(level: TDNotificationLevel | undefined): TDColors {
+    private getFontColor(level: ABNotificationLevel | undefined): ABColors {
         switch (level) {
-            case TDNotificationLevel.WARNING:
-                return TDColors.BLACK;
-            case TDNotificationLevel.SUCCESS:
-                return TDColors.BLACK;
+            case ABNotificationLevel.WARNING:
+                return ABColors.BLACK;
+            case ABNotificationLevel.SUCCESS:
+                return ABColors.BLACK;
             default:
-                return TDColors.WHITE;
+                return ABColors.WHITE;
         }
     }
 
@@ -42,7 +42,7 @@ export default class TDNotification extends React.Component<{
         return this.props.onClick(this);
     }
 
-    private style = (self: TDNotification) => ({
+    private style = (self: ABNotification) => ({
         root: {
             ...baseShadow, // This a static mixin
             top: 10,

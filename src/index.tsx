@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { createEpicMiddleware } from 'redux-observable';
 import { createStore, applyMiddleware, compose } from 'redux';
 
-import TDApplication from './containers/TDApplication';
+import ABApplication from './containers/ABApplication';
 
 import epics from './epics';
 import reducers from './reducers';
@@ -19,4 +19,4 @@ const composeEnhancers = w.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const store = createStore(reducers, composeEnhancers(applyMiddleware(epicMiddleware)));
 
-ReactDOM.render(<Provider store={store}><TDApplication/></Provider>, document.getElementById('root') as HTMLElement);
+ReactDOM.render(<Provider store={store}><ABApplication/></Provider>, document.getElementById('root') as HTMLElement);

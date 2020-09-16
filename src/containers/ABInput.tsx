@@ -1,24 +1,24 @@
 import * as React from 'react';
 import { baseShadow } from '../styles';
-import TDButton from '../components/TDButton';
-import { ITodo, INotification, IState } from '../interfaces';
-import { TDActionsTypes, TDNotificationLevel, TDTodoCategory } from '../enumerations';
+import ABButton from '../components/ABButton';
+import { INotification, IState, INode } from '../interfaces';
+import { ABActionsTypes, ABNotificationLevel } from '../enumerations';
 import { connect } from 'react-redux';
 import { addNotification, connectWebSocket } from '../actions';
 import { Style } from '../builder';
 
-class TDInput extends React.Component<{
-    todos: ITodo[],
-    onAdd: (peerPort: string) => ({ type: TDActionsTypes, payload: string })
-    onEmpty: () => ({ type: TDActionsTypes, payload: INotification })
-    onExists: () => ({ type: TDActionsTypes, payload: INotification })
+class ABInput extends React.Component<{
+    nodes: {[key: string]: INode},
+    onAdd: (port: string) => ({ type: ABActionsTypes, payload: string })
+    onEmpty: () => ({ type: ABActionsTypes, payload: INotification })
+    onExists: () => ({ type: ABActionsTypes, payload: INotification })
 }> {
 
     private input: HTMLInputElement;
 
     public state = { value: '' };
 
-    private style = (self: TDInput) => ({
+    private style = (self: ABInput) => ({
         root: new Style({
             ...baseShadow,
             width: '50%',
@@ -43,10 +43,7 @@ class TDInput extends React.Component<{
      * depending on wether the added ITodo is empty or already exists.
      */
     private onAdd = () => {
-        if (this.props.todos.some((todo: ITodo) => {
-            return todo.label === this.state.value
-                && todo.category !== TDTodoCategory.NULL;
-        })) {
+        if (Object.keys(this.props.nodes).indexOf(this.state.value) !== -1) {
             this.props.onExists();
         } else if (this.state.value !== '') {
             this.props.onAdd(this.state.value);
@@ -76,29 +73,29 @@ class TDInput extends React.Component<{
                     style={this.style(this).input}
                     value={this.state.value}
                     onChange={(event) => this.setState({
-                        value: event.target.value
+                        value: event.target.value.replace(':', '')
                     })}
                 />
-                <TDButton label="Add" onClick={this.onAdd} />
+                <ABButton label="Add" onClick={this.onAdd} />
             </div>
         );
     }
 }
 
 export default connect((state: IState) => ({
-    todos: state.todos
+    nodes: state.nodes
 }), (dispatch, props) => ({
-    onAdd: (peerPort: string) => {
-        dispatch(connectWebSocket(peerPort.replace(':', '')));
+    onAdd: (port: string) => {
+        dispatch(connectWebSocket(port));
     },
     onEmpty: () => dispatch(addNotification({
-        level: TDNotificationLevel.DANGER,
+        level: ABNotificationLevel.DANGER,
         header: 'Oops !',
         content: 'Please insert a label for your ticket'
     })),
     onExists: () => dispatch(addNotification({
-        level: TDNotificationLevel.WARNING,
+        level: ABNotificationLevel.WARNING,
         header: 'Are you sure ?',
         content: 'A ticket with the same label already exists.'
     }))
-}))(TDInput);
+}))(ABInput);
