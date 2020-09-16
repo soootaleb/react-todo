@@ -24,10 +24,10 @@ export default class ABLogFlow extends React.Component<{
       overflow: 'scroll' as 'scroll',
       backgroundColor: ABColors.DARK,
     }).flex('column').expand().align('flex-start').build(),
-    noMessages: {
-      color: ABColors.WHITE,
+    noMessages: new Style({
+      color: ABColors.MINOR,
       fontWeight: 100 as 100
-    }
+    }).expand().build()
   };
 
   private getElements(): JSX.Element[] {

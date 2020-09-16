@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import ABNotification from '../components/ABNotification';
 import { INode, INotification, IState } from '../interfaces';
-import { removeNotification } from '../actions';
+import { connectWebSocket, removeNotification } from '../actions';
 import { ABActionsTypes } from '../enumerations';
 import ABInput from './ABInput';
 import { Style } from '../builder';
@@ -12,6 +12,7 @@ import ABNodeMessages from '../components/ABNodeMessages';
 class ABApplication extends React.Component<{
   nodes: {[key: string]: INode},
   notifications: INotification[],
+  onApplicationStart: any,
   onNotificationClicked: (n: ABNotification) => { type: ABActionsTypes, payload: INotification }
 }> {
 
@@ -32,7 +33,16 @@ class ABApplication extends React.Component<{
       flexDirection: 'column' as 'column',
       backgroundColor: 'transparent',
     },
-    nodes: Style.flex().justify('space-around').width('100%').build()
+    nodes: Style.flex().justify('space-around').width('100%').build(),
+
+    header: new Style({
+      boxSizing: 'border-box'
+    }).flex().justify('flex-start').align('center').padding('10px').width('100%').build(),
+
+    title: new Style({
+      margin: 0,
+      marginRight: '30px'
+    }).build()
   };
 
   private getNotifications(): JSX.Element[] {
@@ -47,11 +57,17 @@ class ABApplication extends React.Component<{
     });
   }
 
+  componentDidMount() {
+    this.props.onApplicationStart();
+  }
+
   public render() {
     return (
       <div style={this.style.root}>
-        <h1>ABCD UI</h1>
-        <ABInput />
+        <div style={this.style.header}>
+          {/* <h1 style={this.style.title}>ABCD UI</h1> */}
+          <ABInput />
+        </div>
         <div style={this.style.nodes}>
           {
             Object.keys(this.props.nodes).map((key: string) => {
@@ -71,5 +87,10 @@ export default connect((state: IState) => ({
   nodes: state.nodes,
   notifications: state.notifications
 }), (dispatch, props) => ({
+  onApplicationStart: () => {
+    dispatch(connectWebSocket('8080'));
+    dispatch(connectWebSocket('55423'));
+    dispatch(connectWebSocket('55426'));
+  },
   onNotificationClicked: (notification: ABNotification) => dispatch(removeNotification(notification.model)),
 }))(ABApplication);

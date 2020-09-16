@@ -14,18 +14,17 @@ export default class ABNodeMessages extends React.Component<{
   private style = (self: ABNodeMessages) => ({
     root: new Style({
       ...baseShadow,
-      height: '600px',
-      marginTop: '1%',
-    }).padding('10px')
+      height: '650px',
+    }).padding('5px')
     .flex('column')
-    .width('30%')
+    .width('31%')
     .align('stretch')
     .build(),
 
     nodes: Style.flex().justify('flex-start').build(),
     header: new Style({
+      marginBottom: '5px'
     }).flex()
-    .padding('10px 0px')
     .align('center')
     .justify('space-between')
     .build(),
@@ -39,12 +38,12 @@ export default class ABNodeMessages extends React.Component<{
       color: ABColors.WHITE,
       backgroundColor: self.props.node.state === undefined ? ABColors.WHITE :
         self.props.node.state.state === 'leader' ?
-        ABColors.CATCHY : self.props.node.state.state === 'candidate' ? ABColors.WARNING : ABColors.SECONDARY
+        ABColors.PRIMARY : self.props.node.state.state === 'candidate' ? ABColors.WARNING : ABColors.SECONDARY
     }).padding('5px 10px').build(),
 
     peers: new Style({
       color: ABColors.MINOR
-    }).padding('10px 0px')
+    }).padding('5px 0px')
     .flex()
     .build(),
     
@@ -54,7 +53,7 @@ export default class ABNodeMessages extends React.Component<{
     headerLeft: Style.flex().center().build(),
     term: new Style({
       marginLeft: '10px',
-      backgroundColor: self.props.node.state.term === -1 ? ABColors.DANGER : ABColors.INFO,
+      backgroundColor: self.props.node.state.term === -1 ? ABColors.DANGER : ABColors.MINOR,
       borderRadius: '30px',
       height: '30px',
       textAlign: 'center',
@@ -62,10 +61,10 @@ export default class ABNodeMessages extends React.Component<{
     }).flex().center().width('30px').build(),
 
     peer: new Style({
-      backgroundColor: ABColors.INFO,
+      backgroundColor: ABColors.MINOR,
       color: ABColors.WHITE,
       borderRadius: '5px',
-      marginLeft: '10px'
+      marginRight: '10px'
     }).padding('5px').build()
   })
 

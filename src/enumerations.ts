@@ -13,10 +13,10 @@ export enum ABActionsTypes {
 }
 
 export enum ABColors {
-    PRIMARY = '#9C27B0',
-    SECONDARY = '#BA68C8',
-    MINOR = '#E1BEE7',
-    CATCHY = '#AA00FF',
+    PRIMARY = '#607d8b',
+    SECONDARY = '#78909c',
+    MINOR = '#90a4ae',
+    CATCHY = '#37474f',
 
     DARK  = '#121212',
     BLACK = '#000000',
