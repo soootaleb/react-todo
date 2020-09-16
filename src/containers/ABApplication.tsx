@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import ABNotification from '../components/ABNotification';
 import { INode, INotification, IState } from '../interfaces';
-import { connectWebSocket, removeNotification } from '../actions';
+import { removeNotification } from '../actions';
 import { ABActionsTypes } from '../enumerations';
 import ABInput from './ABInput';
 import { Style } from '../builder';
@@ -12,7 +12,6 @@ import ABNodeMessages from '../components/ABNodeMessages';
 class ABApplication extends React.Component<{
   nodes: {[key: string]: INode},
   notifications: INotification[],
-  onApplicationStart: any,
   onNotificationClicked: (n: ABNotification) => { type: ABActionsTypes, payload: INotification }
 }> {
 
@@ -57,10 +56,6 @@ class ABApplication extends React.Component<{
     });
   }
 
-  componentDidMount() {
-    this.props.onApplicationStart();
-  }
-
   public render() {
     return (
       <div style={this.style.root}>
@@ -87,10 +82,5 @@ export default connect((state: IState) => ({
   nodes: state.nodes,
   notifications: state.notifications
 }), (dispatch, props) => ({
-  onApplicationStart: () => {
-    dispatch(connectWebSocket('8080'));
-    dispatch(connectWebSocket('59811'));
-    dispatch(connectWebSocket('59813'));
-  },
   onNotificationClicked: (notification: ABNotification) => dispatch(removeNotification(notification.model)),
 }))(ABApplication);
