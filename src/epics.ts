@@ -1,8 +1,20 @@
 import { combineEpics } from 'redux-observable';
 import { ABActionsTypes, ABNotificationLevel } from './enumerations';
-import { addNotification, messageReceived, addNode, removeNode, removeNotification } from './actions';
+import { addNotification, messageReceived, addNode, removeNode, removeNotification, connectWebSocket } from './actions';
 import { Observable } from 'rxjs';
 import { IMessage } from './interfaces';
+
+const messageReceivedEpic = (action, store) => {
+    return action.ofType(ABActionsTypes.MESSAGE_RECEIVED)
+        .map(o => o.payload)
+        .filter((message: IMessage<{message: IMessage}>) => message.payload.message.type === 'uiStateUpdate')
+        .map((message: IMessage<{message: IMessage}>) => message.payload.message)
+        .switchMap((message: IMessage<{peers: string[]}>) => {
+            return Observable.from(message.payload.peers.filter(peer => {
+                return Object.keys(store.getState().nodes).indexOf(peer) === -1;
+            })).map(peer => connectWebSocket(peer));
+        });
+};
 
 const connectWebSocketEpic = (action, store) => {
     return action.ofType(ABActionsTypes.CONNECT_WEBSOCKET)
@@ -55,6 +67,7 @@ const removeNotificationEpic = (action, store) => {
 };
 
 export default combineEpics(...[
+    messageReceivedEpic,
     connectWebSocketEpic,
     removeNotificationEpic,
 ]);
