@@ -63,11 +63,19 @@ map[AT.ADD_NODE] = (state, action) => ({
 });
 
 map[AT.REMOVE_NODE] = (state, action) => {
-    let o = { ...state.nodes };
-    delete o[action.payload];
     return {
         ...state,
-        nodes: o
+        nodes: {
+            ...state.nodes,
+            [action.payload] : {
+                ...state.nodes[action.payload],
+                state: {
+                    ...state.nodes[action.payload].state,
+                    term: -1,
+                    state: 'not connected'
+                }
+            }
+        }
     };
 };
 
