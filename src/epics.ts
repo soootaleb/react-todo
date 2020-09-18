@@ -2,8 +2,25 @@ import { combineEpics } from 'redux-observable';
 import { ABActionsTypes, ABNotificationLevel } from './enumerations';
 import { addNotification, messageReceived, addNode, removeNode, removeNotification, connectWebSocket } from './actions';
 import { Observable } from 'rxjs';
-import { IMessage } from './interfaces';
+import { IMessage, INode } from './interfaces';
 import { WebSocketSubject } from 'rxjs/observable/dom/WebSocketSubject';
+
+const sendMessageEpic = (action, store) => {
+    return action.ofType(ABActionsTypes.SEND_MESSAGE)
+        .map((o) => {
+            const node: INode = o.payload.node;
+
+            /**
+             * I need to send strings while I receive objects
+             * I think it's a but in the implementation...
+             * Anyway I need to fake the TypeScript typing since the
+             * WebSocketSubject<IMessage> is typed (correctly for the incoming messages)
+             */
+            const message: any = JSON.stringify(o.payload.message);
+            node.socket.next(message);
+            return addNotification({content: 'message sent'});
+        });
+};
 
 const messageReceivedEpic = (action, store) => {
     return action.ofType(ABActionsTypes.MESSAGE_RECEIVED)
@@ -68,6 +85,7 @@ const removeNotificationEpic = (action, store) => {
 };
 
 export default combineEpics(...[
+    sendMessageEpic,
     messageReceivedEpic,
     connectWebSocketEpic,
     removeNotificationEpic,

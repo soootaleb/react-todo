@@ -2,16 +2,20 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 
 import ABNotification from '../components/ABNotification';
-import { INode, INotification, IState } from '../interfaces';
-import { connectWebSocket, removeNotification } from '../actions';
+import { IMessage, INode, INotification, IState } from '../interfaces';
+import { connectWebSocket, removeNotification, sendMessage } from '../actions';
 import { ABActionsTypes } from '../enumerations';
 import ABInput from './ABInput';
 import { Style } from '../builder';
 import ABNodeMessages from '../components/ABNodeMessages';
 
 class ABApplication extends React.Component<{
-  nodes: {[key: string]: INode},
+  nodes: { [key: string]: INode },
   notifications: INotification[],
+  sendMessage: (node: INode, message: IMessage) => {
+    type: ABActionsTypes.SEND_MESSAGE,
+    payload: { node: INode, message: IMessage }
+  },
   onAppStart: (o: string) => { type: ABActionsTypes, payload: string }
   onNotificationClicked: (n: ABNotification) => { type: ABActionsTypes, payload: INotification }
 }> {
@@ -75,7 +79,12 @@ class ABApplication extends React.Component<{
         <div style={this.style(this).nodes}>
           {
             Object.keys(this.props.nodes).map((key: string) => {
-              return <ABNodeMessages key={key} node={this.props.nodes[key]} nodes={this.props.nodes}/>;
+              return <ABNodeMessages
+                key={key}
+                sendMessage={(message: IMessage) => this.props.sendMessage(this.props.nodes[key], message)}
+                node={this.props.nodes[key]}
+                nodes={this.props.nodes}
+              />;
             })
           }
         </div>
@@ -91,6 +100,7 @@ export default connect((state: IState) => ({
   nodes: state.nodes,
   notifications: state.notifications
 }), (dispatch, props) => ({
+  sendMessage: (node: INode, message: IMessage) => dispatch(sendMessage(node, message)),
   onAppStart: (port: string) => dispatch(connectWebSocket(port)),
   onNotificationClicked: (notification: ABNotification) => dispatch(removeNotification(notification.model)),
 }))(ABApplication);

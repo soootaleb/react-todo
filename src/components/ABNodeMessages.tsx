@@ -1,14 +1,15 @@
 import * as React from 'react';
 
-import { INode } from '../interfaces';
+import { IMessage, INode } from '../interfaces';
 import ABLogFlow from './ABLogFlow';
 import { Style } from '../builder';
 import ABButton from './ABButton';
 import { baseShadow } from '../styles';
-import { ABColors } from '../enumerations';
+import { ABActionsTypes, ABColors } from '../enumerations';
 
 export default class ABNodeMessages extends React.Component<{
   node: INode,
+  sendMessage: (message: IMessage) => {type: ABActionsTypes.SEND_MESSAGE, payload: {node: INode, message: IMessage}}
   nodes: {[key: string]: INode}
 }> {
 
@@ -104,12 +105,47 @@ export default class ABNodeMessages extends React.Component<{
         </div>
         <ABLogFlow node={this.props.node} nodes={this.props.nodes}/>
         <div style={this.style(this).actions}>
-          <ABButton label="Kill"onClick={console.log}/>
-          <ABButton label="Set Leader" onClick={console.log}/>
-          <ABButton label="Set Follower" onClick={console.log}/>
-          <ABButton label="Set Candidate" onClick={console.log}/>
-        </div>
-        
+          <ABButton label="Kill" onClick={console.log}/>
+          <ABButton
+            label="Set Leader"
+            onClick={() => {
+              this.props.sendMessage({
+                type: 'setState',
+                source: 'ui',
+                destination: this.props.node.nodePort,
+                payload: {
+                  state: 'leader'
+                }
+              });
+            }}
+          />
+          <ABButton
+            label="Set Follower"
+            onClick={() => {
+              this.props.sendMessage({
+                type: 'setState',
+                source: 'ui',
+                destination: this.props.node.nodePort,
+                payload: {
+                  state: 'follower'
+                }
+              });
+            }}
+          />
+          <ABButton
+            label="Set Candidate"
+            onClick={() => {
+              this.props.sendMessage({
+                type: 'setState',
+                source: 'ui',
+                destination: this.props.node.nodePort,
+                payload: {
+                  state: 'candidate'
+                }
+              });
+            }}
+          />
+        </div>        
       </div>
     );
   }

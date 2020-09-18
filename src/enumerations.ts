@@ -10,6 +10,7 @@ export enum ABActionsTypes {
     REMOVE_NODE = 'Remove node',
     CONNECT_WEBSOCKET = 'Connect the websocket',
     MESSAGE_RECEIVED = 'Received a message via the websocket',
+    SEND_MESSAGE = 'Send a message via the websocket'
 }
 
 export enum ABColors {
