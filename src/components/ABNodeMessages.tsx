@@ -9,8 +9,8 @@ import { ABActionsTypes, ABColors } from '../enumerations';
 
 export default class ABNodeMessages extends React.Component<{
   node: INode,
-  sendMessage: (message: IMessage) => {type: ABActionsTypes.SEND_MESSAGE, payload: {node: INode, message: IMessage}}
-  nodes: {[key: string]: INode}
+  sendMessage: (message: IMessage) => { type: ABActionsTypes.SEND_MESSAGE, payload: { node: INode, message: IMessage } }
+  nodes: { [key: string]: INode }
 }> {
 
   private style = (self: ABNodeMessages) => ({
@@ -19,18 +19,18 @@ export default class ABNodeMessages extends React.Component<{
       height: Object.keys(this.props.nodes).length > 3 ? '400px' : '100%',
       marginBottom: '10px'
     }).padding('5px')
-    .flex('column')
-    .width('31%')
-    .align('stretch')
-    .build(),
+      .flex('column')
+      .width('31%')
+      .align('stretch')
+      .build(),
 
     nodes: Style.flex().justify('flex-start').build(),
     header: new Style({
       marginBottom: '5px'
     }).flex()
-    .align('center')
-    .justify('space-between')
-    .build(),
+      .align('center')
+      .justify('space-between')
+      .build(),
 
     nodeName: new Style({
       color: this.props.node.theme.primary,
@@ -42,15 +42,15 @@ export default class ABNodeMessages extends React.Component<{
       color: ABColors.WHITE,
       backgroundColor: self.props.node.state === undefined ? ABColors.MINOR :
         self.props.node.state.state === 'leader' ?
-        ABColors.LEADER : self.props.node.state.state === 'candidate' ? ABColors.CANDIDATE : ABColors.FOLLOWER
+          ABColors.LEADER : self.props.node.state.state === 'candidate' ? ABColors.CANDIDATE : ABColors.FOLLOWER
     }).padding('5px 10px').build(),
 
     peers: new Style({
       color: ABColors.MINOR
     }).padding('5px 0px')
-    .flex()
-    .build(),
-    
+      .flex()
+      .build(),
+
     actions: new Style({
     }).flex().build(),
 
@@ -103,9 +103,22 @@ export default class ABNodeMessages extends React.Component<{
               'No peers connected'
           }
         </div>
-        <ABLogFlow node={this.props.node} nodes={this.props.nodes}/>
+        <ABLogFlow node={this.props.node} nodes={this.props.nodes} />
         <div style={this.style(this).actions}>
-          <ABButton label="Kill" onClick={console.log}/>
+          <ABButton
+            label="Set Foo Bar"
+            onClick={() => {
+              this.props.sendMessage({
+                type: 'setKeyValueRequest',
+                source: 'ui',
+                destination: this.props.node.nodePort,
+                payload: {
+                  'key': 'foo',
+                  'value': 'bar'
+                }
+              });
+            }}
+          />
           <ABButton
             label="Set Leader"
             onClick={() => {
@@ -145,7 +158,7 @@ export default class ABNodeMessages extends React.Component<{
               });
             }}
           />
-        </div>        
+        </div>
       </div>
     );
   }
