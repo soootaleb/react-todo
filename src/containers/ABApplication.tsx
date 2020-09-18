@@ -40,6 +40,7 @@ class ABApplication extends React.Component<{
     nodes: new Style({
       flexWrap: 'wrap',
       position: 'relative',
+      overflow: 'hidden' as 'hidden',
       height: Object.keys(this.props.nodes).length <= 3 ? '100%' : '300px'
     }).flex().justify('space-around').width('100%').build(),
 
