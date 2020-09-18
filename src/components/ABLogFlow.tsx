@@ -44,13 +44,13 @@ export default class ABLogFlow extends React.Component<{
     });
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps: {node: INode}) {
     const prevMessages = prevProps.node.messages.filter((message: IMessage<IMessage>) => {
       return message.payload.type !== 'heartBeat'
         && message.type !== 'uiStateUpdate';
-    })
+    });
     if (this.ul && prevMessages.length < this.messages.length) {
-      this.ul.scrollTo({ top: this.ul.scrollHeight })
+      this.ul.scrollTo({ top: this.ul.scrollHeight });
     }
   }
 
