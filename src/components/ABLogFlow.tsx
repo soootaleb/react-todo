@@ -44,6 +44,12 @@ export default class ABLogFlow extends React.Component<{
     });
   }
 
+  componentDidUpdate() {
+    if (this.ul) {
+      this.ul.scrollTo({ top: this.ul.scrollHeight })
+    }
+  }
+
   public render() {
     if (this.messages.length > 0) {
       return (
