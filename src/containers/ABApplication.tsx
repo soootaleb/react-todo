@@ -16,7 +16,7 @@ class ABApplication extends React.Component<{
   onNotificationClicked: (n: ABNotification) => { type: ABActionsTypes, payload: INotification }
 }> {
 
-  private style = {
+  private style = (self: ABApplication) => ({
     root: {
       width: '100%',
       height: '100%',
@@ -34,7 +34,9 @@ class ABApplication extends React.Component<{
       backgroundColor: 'transparent',
     },
     nodes: new Style({
-      flexWrap: 'wrap'
+      flexWrap: 'wrap',
+      position: 'relative',
+      height: Object.keys(this.props.nodes).length <= 3 ? '100%' : '300px'
     }).flex().justify('space-around').width('100%').build(),
 
     header: new Style({
@@ -45,7 +47,7 @@ class ABApplication extends React.Component<{
       margin: 0,
       marginRight: '30px'
     }).build()
-  };
+  })
 
   private getNotifications(): JSX.Element[] {
     return this.props.notifications.map((notification: INotification, index) => {
@@ -65,19 +67,19 @@ class ABApplication extends React.Component<{
 
   public render() {
     return (
-      <div style={this.style.root}>
-        <div style={this.style.header}>
+      <div style={this.style(this).root}>
+        <div style={this.style(this).header}>
           {/* <h1 style={this.style.title}>ABCD UI</h1> */}
           <ABInput />
         </div>
-        <div style={this.style.nodes}>
+        <div style={this.style(this).nodes}>
           {
             Object.keys(this.props.nodes).map((key: string) => {
               return <ABNodeMessages key={key} node={this.props.nodes[key]} nodes={this.props.nodes}/>;
             })
           }
         </div>
-        <div style={this.style.notifications} >
+        <div style={this.style(this).notifications} >
           {this.getNotifications()}
         </div>
       </div>

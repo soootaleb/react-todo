@@ -15,7 +15,7 @@ export default class ABNodeMessages extends React.Component<{
   private style = (self: ABNodeMessages) => ({
     root: new Style({
       ...baseShadow,
-      height: '300px',
+      height: '100%',
       marginBottom: '10px'
     }).padding('5px')
     .flex('column')
