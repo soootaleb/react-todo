@@ -41,7 +41,7 @@ class ABApplication extends React.Component<{
       flexWrap: 'wrap',
       position: 'relative',
       overflow: 'hidden' as 'hidden',
-      height: Object.keys(this.props.nodes).length <= 3 ? '100%' : '300px'
+      height: Object.keys(this.props.nodes).length <= 3 ? '100%' : 'auto'
     }).flex().justify('space-around').width('100%').build(),
 
     header: new Style({
