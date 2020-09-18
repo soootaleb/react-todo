@@ -48,13 +48,14 @@ map[AT.ADD_NODE] = (state, action) => ({
     ...state,
     nodes: {
         ...state.nodes,
-        [action.payload]: {
+        [action.payload.node]: {
             state: {
                 term: -1,
                 state: 'not connected',
                 peers: []
             },
-            nodePort: action.payload,
+            socket: action.payload.socket,
+            nodePort: action.payload.node,
             messages: [],
             theme: themes[counter++ % themes.length]
         }

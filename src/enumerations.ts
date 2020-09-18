@@ -9,7 +9,7 @@ export enum ABActionsTypes {
     ADD_NODE = 'Add node',
     REMOVE_NODE = 'Remove node',
     CONNECT_WEBSOCKET = 'Connect the websocket',
-    MESSAGE_RECEIVED = 'Received a message via the websocket'
+    MESSAGE_RECEIVED = 'Received a message via the websocket',
 }
 
 export enum ABColors {

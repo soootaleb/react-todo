@@ -3,6 +3,7 @@ import { ABActionsTypes, ABNotificationLevel } from './enumerations';
 import { addNotification, messageReceived, addNode, removeNode, removeNotification, connectWebSocket } from './actions';
 import { Observable } from 'rxjs';
 import { IMessage } from './interfaces';
+import { WebSocketSubject } from 'rxjs/observable/dom/WebSocketSubject';
 
 const messageReceivedEpic = (action, store) => {
     return action.ofType(ABActionsTypes.MESSAGE_RECEIVED)
@@ -19,16 +20,16 @@ const messageReceivedEpic = (action, store) => {
 const connectWebSocketEpic = (action, store) => {
     return action.ofType(ABActionsTypes.CONNECT_WEBSOCKET)
         .mergeMap(o => {
+            const websocket: WebSocketSubject<IMessage> = Observable.webSocket<IMessage>('ws://127.0.0.1:' + o.payload);
             return Observable.concat(
                 Observable.from([
-                    addNode(o.payload),
+                    addNode(o.payload, websocket),
                     addNotification({
                         level: ABNotificationLevel.SUCCESS,
                         header: 'WebSocket connected',
                         content: o.payload
                     })
-                ]), Observable.webSocket('ws://127.0.0.1:' + o.payload)
-                    .map((message: IMessage<{message: IMessage}>) => {
+                ]), websocket.map((message: IMessage<{message: IMessage}>) => {
                         /**
                          * Message is wrapped on the backend like this
                          * It means that front receives a regular message but

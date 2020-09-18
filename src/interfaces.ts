@@ -1,3 +1,4 @@
+import { WebSocketSubject } from 'rxjs/observable/dom/WebSocketSubject';
 import { ABNotificationLevel } from './enumerations';
 
 export interface IMessage<T = Object> {
@@ -9,6 +10,7 @@ export interface IMessage<T = Object> {
 
 export interface INode {
     nodePort: string,
+    socket: WebSocketSubject<IMessage>,
     state: {
         term: number,
         state: string,

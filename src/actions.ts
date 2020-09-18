@@ -1,5 +1,6 @@
 import { IMessage, INotification } from './interfaces';
 import { ABActionsTypes } from './enumerations';
+import { WebSocketSubject } from 'rxjs/observable/dom/WebSocketSubject';
 
 // Application 
 export const addNotification = (notification: INotification) => ({
@@ -19,9 +20,12 @@ export const connectWebSocket = (port: string) => ({
     payload: port
 });
 
-export const addNode = (node: string) => ({
+export const addNode = (node: string, socket: WebSocketSubject<IMessage>) => ({
     type: ABActionsTypes.ADD_NODE,
-    payload: node
+    payload: {
+        node: node,
+        socket: socket
+    }
 });
 
 export const removeNode = (node: string) => ({
