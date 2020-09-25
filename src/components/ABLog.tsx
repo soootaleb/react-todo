@@ -57,6 +57,7 @@ export default class ABLog extends React.Component<{
             color: ABColors.BLACK,
             padding: '10px',
             top: '100%',
+            right: '10px',
             backgroundColor: ABColors.WHITE
         }).build()
     })
@@ -106,11 +107,9 @@ export default class ABLog extends React.Component<{
                     {this.props.log.destination}
                 </span>
                 <span style={this.style(this).type}>{this.props.log.type}</span>
-                {
-                    this.hover ? <pre style={this.style(this).payload}>
-                        {JSON.stringify(this.props.log, null, 4)}
-                    </pre> : null
-                }
+                {this.hover ? <pre style={this.style(this).payload}>
+                    {JSON.stringify(this.props.log, null, 4)}
+                </pre> : null}
             </div>
         );
     }

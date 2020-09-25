@@ -37,6 +37,7 @@ export default class ABNodeMessages extends React.Component<{
       fontSize: '30px',
       fontWeight: 'bold'
     }).build(),
+
     state: new Style({
       ...baseShadow,
       color: ABColors.WHITE,
@@ -69,7 +70,9 @@ export default class ABNodeMessages extends React.Component<{
       color: ABColors.WHITE,
       borderRadius: '50px',
       marginRight: '10px'
-    }).padding('2px 10px').build()
+    }).padding('2px 10px').build(),
+
+    variables: new Style({}).build()
   })
 
   private getPeerStyle(peer: string) {
@@ -104,6 +107,9 @@ export default class ABNodeMessages extends React.Component<{
           }
         </div>
         <ABLogFlow node={this.props.node} nodes={this.props.nodes} />
+        <pre style={this.style(this).variables}>
+          {JSON.stringify(this.props.node.state, null, 4)}
+        </pre>
         <div style={this.style(this).actions}>
           <ABButton
             label="Set Foo Bar"
