@@ -12,7 +12,11 @@ export interface INode {
     nodePort: string,
     socket: WebSocketSubject<IMessage>,
     state: {
+        run: boolean,
         term: number,
+        store: {
+            store: {key: string, value: string}[]
+        },
         state: string,
         peers: string[],
     },
