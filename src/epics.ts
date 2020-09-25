@@ -72,7 +72,7 @@ const connectWebSocketEpic = (action, store) => {
                                 header: 'WebSocket not connected',
                                 content: error.target.url
                             })
-                        ]);
+                        ]).switchMap(() => Observable.of(connectWebSocket(o.payload)).delay(1000));
                     })
             );
         });
