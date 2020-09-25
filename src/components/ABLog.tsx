@@ -9,9 +9,13 @@ export default class ABLog extends React.Component<{
     nodes: { [key: string]: INode }
 }> {
 
+    private hover: boolean = false;
+
     private style = (self: ABLog) => ({
         root: new Style({
             padding: 2,
+            cursor: 'pointer',
+            position: 'relative',
             color: ABColors.WHITE,
             boxSizing: 'border-box',
             backgroundColor: 'transparent'
@@ -41,7 +45,20 @@ export default class ABLog extends React.Component<{
             margin: '0px 5px',
             textAlign: 'center',
             backgroundColor: this.destinationColor
-        }).padding('2px 0px').build()
+        }).padding('2px 0px').build(),
+
+        payload: new Style({
+            position: 'absolute',
+            width: 'auto',
+            height: 'auto',
+            borderRadius: '2px',
+            zIndex: 10,
+            margin: 0,
+            color: ABColors.BLACK,
+            padding: '10px',
+            top: '100%',
+            backgroundColor: ABColors.WHITE
+        }).build()
     })
 
     private get upOrDownStyle() {
@@ -74,7 +91,11 @@ export default class ABLog extends React.Component<{
 
     public render() {
         return (
-            <div style={this.style(this).root} >
+            <div
+                onMouseEnter={() => this.hover = true}
+                onMouseLeave={() => this.hover = false}
+                style={this.style(this).root}
+            >
                 <span className="material-icons" style={this.upOrDownStyle}>
                     {this.internal ? 'loop' : this.sent ? 'arrow_circle_up' : 'arrow_circle_down'}
                 </span>
@@ -85,9 +106,11 @@ export default class ABLog extends React.Component<{
                     {this.props.log.destination}
                 </span>
                 <span style={this.style(this).type}>{this.props.log.type}</span>
-                {/* <pre>
-                    {JSON.stringify(this.props.log, null, 4)}
-                </pre> */}
+                {
+                    this.hover ? <pre style={this.style(this).payload}>
+                        {JSON.stringify(this.props.log, null, 4)}
+                    </pre> : null
+                }
             </div>
         );
     }
