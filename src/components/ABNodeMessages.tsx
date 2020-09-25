@@ -18,20 +18,20 @@ export default class ABNodeMessages extends React.Component<{
 
   componentDidMount() {
     for (let index = 0; index < 5; index++) {
-      this.keys.push(Math.random().toString(36).substring(2))
+      this.keys.push(Math.random().toString(36).substring(2));
     }
   }
 
   private get key() {
-    return this.keys[Math.floor(Math.random() * this.keys.length)]
+    return this.keys[Math.floor(Math.random() * this.keys.length)];
   }
 
   private get success() {
     const ok = this.keys.filter((key) => {
       return Object.keys(this.props.node.state.store.store).indexOf(key) !== -1 &&
-          this.props.node.state.store.store[key].value === this.requests[key]
-    })
-    return ((ok.length * 100) / this.keys.length)
+          this.props.node.state.store.store[key].value === this.requests[key];
+    });
+    return ((ok.length * 100) / this.keys.length);
   }
 
   private style = (self: ABNodeMessages) => ({
@@ -159,7 +159,7 @@ export default class ABNodeMessages extends React.Component<{
         </div>
         <ABLogFlow node={this.props.node} nodes={this.props.nodes} />
         <div style={this.style(this).measure}>
-          <div style={this.style(this).success}></div>
+          <div style={this.style(this).success}/>
           <span style={this.style(this).successText}>{this.success}</span>
         </div>
         <pre style={this.style(this).variables}>
@@ -169,8 +169,8 @@ export default class ABNodeMessages extends React.Component<{
           <ABButton
             label="Set Foo Bar"
             onClick={() => {
-              const value = Math.random().toString(36).substring(2)
-              const key = this.key
+              const value = Math.random().toString(36).substring(2);
+              const key = this.key;
               this.requests[key] = value;
               this.props.sendMessage({
                 type: 'setKeyValueRequest',
