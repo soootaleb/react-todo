@@ -9,29 +9,22 @@ import { ABActionsTypes, ABColors } from '../enumerations';
 
 export default class ABNodeMessages extends React.Component<{
   node: INode,
+  keys: string[],
+  requests: {[key: string]: string},
   sendMessage: (message: IMessage) => { type: ABActionsTypes.SEND_MESSAGE, payload: { node: INode, message: IMessage } }
   nodes: { [key: string]: INode }
 }> {
 
-  private keys: string[] = [];
-  private requests: {[key: string]: string} = {};
-
-  componentDidMount() {
-    for (let index = 0; index < 5; index++) {
-      this.keys.push(Math.random().toString(36).substring(2));
-    }
-  }
-
-  private get key() {
-    return this.keys[Math.floor(Math.random() * this.keys.length)];
+  private get key(): string {
+    return this.props.keys[Math.floor(Math.random() * this.props.keys.length)];
   }
 
   private get success() {
-    const ok = this.keys.filter((key) => {
+    const ok = this.props.keys.filter((key) => {
       return Object.keys(this.props.node.state.store.store).indexOf(key) !== -1 &&
-          this.props.node.state.store.store[key].value === this.requests[key];
+          this.props.node.state.store.store[key].value === this.props.requests[key];
     });
-    return ((ok.length * 100) / this.keys.length);
+    return ((ok.length * 100) / this.props.keys.length);
   }
 
   private style = (self: ABNodeMessages) => ({
@@ -131,7 +124,9 @@ export default class ABNodeMessages extends React.Component<{
       <div style={this.style(this).root}>
         <div style={this.style(this).header}>
           <div style={this.style(this).headerLeft}>
-            <div style={this.style(this).nodeName}>{this.props.node.nodePort}</div>
+            <div style={this.style(this).nodeName}>
+              {this.props.node.nodePort.substr(this.props.node.nodePort.lastIndexOf(':') + 1)}
+            </div>
             <span style={this.style(this).term}>{this.props.node.state.term}</span>
           </div>
           <ABButton
@@ -145,13 +140,26 @@ export default class ABNodeMessages extends React.Component<{
               });
             }}
           />
+          <ABButton
+            label="Clear Store"
+            onClick={() => {
+              this.props.sendMessage({
+                type: 'clearStore',
+                source: 'ui',
+                destination: this.props.node.nodePort,
+                payload: {}
+              });
+            }}
+          />
           <div style={this.style(this).state}>{this.props.node.state.state.toUpperCase()}</div>
         </div>
         <div style={this.style(this).peers}>
           {
             this.props.node.state.peers.length > 0 ?
               this.props.node.state.peers.map((peer, index) => {
-                return <span style={this.getPeerStyle(peer)} key={index}>{peer}</span>;
+                return <span style={this.getPeerStyle(peer)} key={index}>
+                  {peer.substr(peer.lastIndexOf(':') + 1)}
+                </span>;
               }) :
 
               'No peers connected'
@@ -169,18 +177,22 @@ export default class ABNodeMessages extends React.Component<{
           <ABButton
             label="Set Foo Bar"
             onClick={() => {
-              const value = Math.random().toString(36).substring(2);
-              const key = this.key;
-              this.requests[key] = value;
-              this.props.sendMessage({
-                type: 'setKeyValueRequest',
-                source: 'ui',
-                destination: this.props.node.nodePort,
-                payload: {
-                  'key': key,
-                  'value': value
-                }
-              });
+              for (let counter = 0; counter < 1; counter++) {
+                setTimeout(() => {
+                  const value = Math.random().toString(36).substring(2);
+                  const key = this.key;
+                  this.props.requests[key] = value;
+                  this.props.sendMessage({
+                    type: 'setKeyValueRequest',
+                    source: 'ui',
+                    destination: this.props.node.nodePort,
+                    payload: {
+                      'key': key,
+                      'value': value
+                    }
+                  });
+                }, 500 * counter);
+              }
             }}
           />
           <ABButton

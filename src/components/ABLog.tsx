@@ -71,7 +71,7 @@ export default class ABLog extends React.Component<{
 
     private get internal(): Boolean {
         return Number.isNaN(parseInt(this.props.log.source, 10))
-            && Number.isNaN(parseInt(this.props.log.destination, 10));
+            && Number.isNaN(parseInt(this.port, 10));
     }
 
     private get sent(): Boolean {
@@ -86,8 +86,12 @@ export default class ABLog extends React.Component<{
 
     private get destinationColor(): string {
         return this.internal ? ABColors.PRIMARY :
-            Object.keys(this.props.nodes).indexOf(this.props.log.destination) === -1 ?
-                ABColors.PRIMARY : this.props.nodes[this.props.log.destination].theme.primary;
+            Object.keys(this.props.nodes).indexOf(this.port) === -1 ?
+                ABColors.PRIMARY : this.props.nodes[this.port].theme.primary;
+    }
+
+    private get port(): string {
+        return this.props.log.destination.substr(this.props.log.destination.lastIndexOf(':') + 1);
     }
 
     public render() {
@@ -104,7 +108,7 @@ export default class ABLog extends React.Component<{
                     {this.props.log.source}
                 </span>
                 <span style={this.style(this).destination}>
-                    {this.props.log.destination}
+                    {this.port}
                 </span>
                 <span style={this.style(this).type}>{this.props.log.type}</span>
                 {this.hover ? <pre style={this.style(this).payload}>

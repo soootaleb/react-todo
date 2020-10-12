@@ -20,6 +20,9 @@ class ABApplication extends React.Component<{
   onNotificationClicked: (n: ABNotification) => { type: ABActionsTypes, payload: INotification }
 }> {
 
+  private keys: string[] = [];
+  private requests: {[key: string]: string} = {};
+
   private style = (self: ABApplication) => ({
     root: {
       width: '100%',
@@ -55,21 +58,33 @@ class ABApplication extends React.Component<{
   })
 
   private getNotifications(): JSX.Element[] {
-    return this.props.notifications.map((notification: INotification, index) => {
-      return (
-        <ABNotification
-          onClick={this.props.onNotificationClicked}
-          key={Math.random() * (index + 1)}
-          notification={notification}
-        />
-      );
-    });
+    return this.props.notifications
+      .filter((n) => n.content !== 'message sent')
+      .map((notification: INotification, index) => {
+        return (
+          <ABNotification
+            onClick={this.props.onNotificationClicked}
+            key={Math.random() * (index + 1)}
+            notification={notification}
+          />
+        );
+      });
   }
 
   componentDidMount() {
+    for (let index = 0; index < 5; index++) {
+      this.keys.push(Math.random().toString(36).substring(2));
+    }
     this.props.onAppStart('8080');
   }
 
+  private sendMessage(node: INode, message: IMessage<{key: string, value: string}>) {
+    if (message.type === 'setKeyValueRequest') {
+      this.requests[message.payload.key] = message.payload.value;
+    }
+    return this.props.sendMessage(node, message);
+  }
+    
   public render() {
     return (
       <div style={this.style(this).root}>
@@ -82,7 +97,9 @@ class ABApplication extends React.Component<{
             Object.keys(this.props.nodes).map((key: string) => {
               return <ABNodeMessages
                 key={key}
-                sendMessage={(message: IMessage) => this.props.sendMessage(this.props.nodes[key], message)}
+                keys={this.keys}
+                requests={this.requests}
+                sendMessage={(message: IMessage<any>) => this.sendMessage(this.props.nodes[key], message)}
                 node={this.props.nodes[key]}
                 nodes={this.props.nodes}
               />;

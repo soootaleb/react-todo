@@ -37,7 +37,10 @@ const messageReceivedEpic = (action, store) => {
 const connectWebSocketEpic = (action, store) => {
     return action.ofType(ABActionsTypes.CONNECT_WEBSOCKET)
         .mergeMap(o => {
-            const websocket: WebSocketSubject<IMessage> = Observable.webSocket<IMessage>('ws://127.0.0.1:' + o.payload);
+            const websocket: WebSocketSubject<IMessage> =
+                Observable.webSocket<IMessage>(
+                    'ws://212.47.248.166:' + o.payload + '/ui'
+                );
             return Observable.concat(
                 Observable.from([
                     addNode(o.payload, websocket),
