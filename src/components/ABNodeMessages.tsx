@@ -175,24 +175,6 @@ export default class ABNodeMessages extends React.Component<{
         </pre>
         <div style={this.style(this).actions}>
           <ABButton
-            label="Set Foo Bar"
-            onClick={() => {
-              const value = Math.random().toString(36).substring(2);
-              const key = this.key;
-              this.props.requests[key] = value;
-              this.props.sendMessage({
-                type: 'KVOpRequest',
-                source: 'ui',
-                destination: this.props.node.ip,
-                payload: {
-                  action: 'set',
-                  key: key,
-                  value: value,
-                }
-              });
-            }}
-          />
-          <ABButton
             label="Set Leader"
             onClick={() => {
               this.props.sendMessage({
