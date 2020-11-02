@@ -10,7 +10,7 @@ import { ABActionsTypes, ABColors } from '../enumerations';
 export default class ABNodeMessages extends React.Component<{
   node: INode,
   keys: string[],
-  requests: {[key: string]: string},
+  requests: { [key: string]: string },
   sendMessage: (message: IMessage) => { type: ABActionsTypes.SEND_MESSAGE, payload: { node: INode, message: IMessage } }
   nodes: { [key: string]: INode }
 }> {
@@ -22,7 +22,7 @@ export default class ABNodeMessages extends React.Component<{
   private get success() {
     const ok = this.props.keys.filter((key) => {
       return Object.keys(this.props.node.state.store.store).indexOf(key) !== -1 &&
-          this.props.node.state.store.store[key].value === this.props.requests[key];
+        this.props.node.state.store.store[key].value === this.props.requests[key];
     });
     return ((ok.length * 100) / this.props.keys.length);
   }
@@ -167,7 +167,7 @@ export default class ABNodeMessages extends React.Component<{
         </div>
         <ABLogFlow node={this.props.node} nodes={this.props.nodes} />
         <div style={this.style(this).measure}>
-          <div style={this.style(this).success}/>
+          <div style={this.style(this).success} />
           <span style={this.style(this).successText}>{this.success}</span>
         </div>
         <pre style={this.style(this).variables}>
@@ -177,22 +177,19 @@ export default class ABNodeMessages extends React.Component<{
           <ABButton
             label="Set Foo Bar"
             onClick={() => {
-              for (let counter = 0; counter < 1; counter++) {
-                setTimeout(() => {
-                  const value = Math.random().toString(36).substring(2);
-                  const key = this.key;
-                  this.props.requests[key] = value;
-                  this.props.sendMessage({
-                    type: 'setKeyValueRequest',
-                    source: 'ui',
-                    destination: this.props.node.ip,
-                    payload: {
-                      'key': key,
-                      'value': value
-                    }
-                  });
-                }, 500 * counter);
-              }
+              const value = Math.random().toString(36).substring(2);
+              const key = this.key;
+              this.props.requests[key] = value;
+              this.props.sendMessage({
+                type: 'KVOpRequest',
+                source: 'ui',
+                destination: this.props.node.ip,
+                payload: {
+                  action: 'set',
+                  key: key,
+                  value: value,
+                }
+              });
             }}
           />
           <ABButton
