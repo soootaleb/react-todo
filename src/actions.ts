@@ -14,9 +14,9 @@ export const removeNotification = (notification: INotification) => ({
 
 // WebSocket
 
-export const connectWebSocket = (port: string) => ({
+export const connectWebSocket = (ip: string) => ({
     type: ABActionsTypes.CONNECT_WEBSOCKET,
-    payload: port
+    payload: ip
 });
 
 export const addNode = (node: string, socket) => ({

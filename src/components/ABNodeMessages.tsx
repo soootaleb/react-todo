@@ -125,7 +125,7 @@ export default class ABNodeMessages extends React.Component<{
         <div style={this.style(this).header}>
           <div style={this.style(this).headerLeft}>
             <div style={this.style(this).nodeName}>
-              {this.props.node.nodePort.substr(this.props.node.nodePort.lastIndexOf(':') + 1)}
+              {this.props.node.ip.substr(this.props.node.ip.lastIndexOf(':') + 1)}
             </div>
             <span style={this.style(this).term}>{this.props.node.state.term}</span>
           </div>
@@ -135,7 +135,7 @@ export default class ABNodeMessages extends React.Component<{
               this.props.sendMessage({
                 type: 'runStop',
                 source: 'ui',
-                destination: this.props.node.nodePort,
+                destination: this.props.node.ip,
                 payload: {}
               });
             }}
@@ -146,7 +146,7 @@ export default class ABNodeMessages extends React.Component<{
               this.props.sendMessage({
                 type: 'clearStore',
                 source: 'ui',
-                destination: this.props.node.nodePort,
+                destination: this.props.node.ip,
                 payload: {}
               });
             }}
@@ -185,7 +185,7 @@ export default class ABNodeMessages extends React.Component<{
                   this.props.sendMessage({
                     type: 'setKeyValueRequest',
                     source: 'ui',
-                    destination: this.props.node.nodePort,
+                    destination: this.props.node.ip,
                     payload: {
                       'key': key,
                       'value': value
@@ -201,7 +201,7 @@ export default class ABNodeMessages extends React.Component<{
               this.props.sendMessage({
                 type: 'setState',
                 source: 'ui',
-                destination: this.props.node.nodePort,
+                destination: this.props.node.ip,
                 payload: {
                   state: 'leader'
                 }
@@ -214,7 +214,7 @@ export default class ABNodeMessages extends React.Component<{
               this.props.sendMessage({
                 type: 'setState',
                 source: 'ui',
-                destination: this.props.node.nodePort,
+                destination: this.props.node.ip,
                 payload: {
                   state: 'follower'
                 }
@@ -227,7 +227,7 @@ export default class ABNodeMessages extends React.Component<{
               this.props.sendMessage({
                 type: 'setState',
                 source: 'ui',
-                destination: this.props.node.nodePort,
+                destination: this.props.node.ip,
                 payload: {
                   state: 'candidate'
                 }

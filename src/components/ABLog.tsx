@@ -71,11 +71,11 @@ export default class ABLog extends React.Component<{
 
     private get internal(): Boolean {
         return Number.isNaN(parseInt(this.props.log.source, 10))
-            && Number.isNaN(parseInt(this.port, 10));
+            && !(/([0-9]+)\.{3}[0-9]+/g.test(this.ip));
     }
 
     private get sent(): Boolean {
-        return this.props.node.nodePort === this.props.log.source;
+        return this.props.node.ip === this.props.log.source;
     }
 
     private get sourceColor(): string {
@@ -86,12 +86,12 @@ export default class ABLog extends React.Component<{
 
     private get destinationColor(): string {
         return this.internal ? ABColors.PRIMARY :
-            Object.keys(this.props.nodes).indexOf(this.port) === -1 ?
-                ABColors.PRIMARY : this.props.nodes[this.port].theme.primary;
+            Object.keys(this.props.nodes).indexOf(this.ip) === -1 ?
+                ABColors.PRIMARY : this.props.nodes[this.ip].theme.primary;
     }
 
-    private get port(): string {
-        return this.props.log.destination.substr(this.props.log.destination.lastIndexOf(':') + 1);
+    private get ip(): string {
+        return this.props.log.destination;
     }
 
     public render() {
@@ -105,10 +105,10 @@ export default class ABLog extends React.Component<{
                     {this.internal ? 'loop' : this.sent ? 'arrow_circle_up' : 'arrow_circle_down'}
                 </span>
                 <span style={this.style(this).source}>
-                    {this.props.log.source}
+                    {this.props.log.source.substr(0, 5)}
                 </span>
                 <span style={this.style(this).destination}>
-                    {this.port}
+                    {this.ip.substr(0, 5)}
                 </span>
                 <span style={this.style(this).type}>{this.props.log.type}</span>
                 {this.hover ? <pre style={this.style(this).payload}>

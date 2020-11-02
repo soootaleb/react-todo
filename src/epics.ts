@@ -25,8 +25,7 @@ const sendMessageEpic = (action, store) => {
 const messageReceivedEpic = (action, store) => {
     return action.ofType(ABActionsTypes.MESSAGE_RECEIVED)
         .map(o => o.payload)
-        .filter((message: IMessage<{message: IMessage}>) => message.payload.message.type === 'uiStateUpdate')
-        .map((message: IMessage<{message: IMessage}>) => message.payload.message)
+        .filter((message: IMessage<{message: IMessage}>) => message.type === 'uiStateUpdate')
         .switchMap((message: IMessage<{peers: string[]}>) => {
             return Observable.from(message.payload.peers.filter(peer => {
                 return Object.keys(store.getState().nodes).indexOf(peer) === -1;
@@ -39,7 +38,7 @@ const connectWebSocketEpic = (action, store) => {
         .mergeMap(o => {
             const websocket: WebSocketSubject<IMessage> =
                 Observable.webSocket<IMessage>(
-                    'ws://212.47.248.166:' + o.payload + '/ui'
+                    'ws://' + o.payload + ':8080/ui'
                 );
             return Observable.concat(
                 Observable.from([
@@ -53,20 +52,23 @@ const connectWebSocketEpic = (action, store) => {
                         /**
                          * Message is wrapped on the backend like this
                          * It means that front receives a regular message but
-                         * - source is the node sending the message to the UI
-                         * - destination is "ui"
+                         * - source is "log" and overriden here
+                         * - destination is "ui" (all UIs have all the messages)
                          * - payload is the actual message that the node wants to forward
                          * 
                          * this.messages.setValue({
                          *     type: "uiLogMessage",
-                         *     source: this.net.port,
+                         *     source: "log",
                          *     destination: "ui",
                          *     payload: {
                          *     message: message
                          *     }
                          * })
                          */
-                        return messageReceived(message);
+                        return messageReceived({
+                            ...message,
+                            source: o.payload
+                        });
                     }).catch(error => {
                         return Observable.from([
                             removeNode(o.payload),

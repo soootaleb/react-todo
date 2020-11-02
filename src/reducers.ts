@@ -32,12 +32,12 @@ map[AT.MESSAGE_RECEIVED] = (state, action) => {
             ...state.nodes,
             [message.source]: {
                 ...state.nodes[message.source],
-                state: message.payload.message.type === 'uiStateUpdate' ?
-                    { ...message.payload.message.payload } :
+                state: message.type === 'uiStateUpdate' ?
+                    { ...message.payload } :
                     { ...state.nodes[message.source].state },
                 messages: [
                     ...state.nodes[message.source].messages,
-                    message.payload.message
+                    message.type === 'uiStateUpdate' ? message : message.payload.message
                 ]
             }
         }
@@ -59,7 +59,7 @@ map[AT.ADD_NODE] = (state, action) => ({
                 }
             },
             socket: action.payload.socket,
-            nodePort: action.payload.node,
+            ip: action.payload.node,
             messages: [],
             theme: themes[counter++ % themes.length]
         }

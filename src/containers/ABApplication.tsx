@@ -75,7 +75,7 @@ class ABApplication extends React.Component<{
     for (let index = 0; index < 5; index++) {
       this.keys.push(Math.random().toString(36).substring(2));
     }
-    this.props.onAppStart('8080');
+    this.props.onAppStart('212.47.248.166');
   }
 
   private sendMessage(node: INode, message: IMessage<{key: string, value: string}>) {
@@ -119,6 +119,6 @@ export default connect((state: IState) => ({
   notifications: state.notifications
 }), (dispatch, props) => ({
   sendMessage: (node: INode, message: IMessage) => dispatch(sendMessage(node, message)),
-  onAppStart: (port: string) => dispatch(connectWebSocket(port)),
+  onAppStart: (ip: string) => dispatch(connectWebSocket(ip)),
   onNotificationClicked: (notification: ABNotification) => dispatch(removeNotification(notification.model)),
 }))(ABApplication);

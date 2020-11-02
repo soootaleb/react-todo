@@ -9,7 +9,7 @@ export interface IMessage<T = Object> {
 }
 
 export interface INode {
-    nodePort: string,
+    ip: string,
     socket: WebSocketSubject<IMessage>,
     state: {
         run: boolean,
