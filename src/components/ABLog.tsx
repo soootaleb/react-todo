@@ -70,8 +70,8 @@ export default class ABLog extends React.Component<{
     }
 
     private get internal(): Boolean {
-        return Number.isNaN(parseInt(this.props.log.source, 10))
-            && !(/([0-9]+)\.{3}[0-9]+/g.test(this.ip));
+        return /[a-z]+/g.test(this.props.log.source)
+            && /[a-z]+/g.test(this.props.log.destination);
     }
 
     private get sent(): Boolean {
