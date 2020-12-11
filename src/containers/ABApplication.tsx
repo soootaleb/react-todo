@@ -75,7 +75,7 @@ class ABApplication extends React.Component<{
     for (let index = 0; index < 5; index++) {
       this.keys.push(Math.random().toString(36).substring(2));
     }
-    this.props.onAppStart('212.47.248.166');
+    this.props.onAppStart('192.168.64.2');
   }
 
   private sendMessage(node: INode, message: IMessage<{key: string, value: string}>) {

@@ -65,7 +65,7 @@ export default class ABLog extends React.Component<{
     private get upOrDownStyle() {
         return {
             ...this.style(this).up_or_down,
-            color: this.internal ? ABColors.PRIMARY : this.sent ? ABColors.SUCCESS : ABColors.DANGER
+            color: this.internal ? ABColors.PRIMARY : this.received ? ABColors.DANGER : ABColors.SUCCESS
         };
     }
 
@@ -74,8 +74,8 @@ export default class ABLog extends React.Component<{
             && /[a-z]+/g.test(this.props.log.destination);
     }
 
-    private get sent(): Boolean {
-        return this.props.node.ip === this.props.log.source;
+    private get received(): Boolean {
+        return !/[a-z]+/g.test(this.props.log.source);
     }
 
     private get sourceColor(): string {
@@ -102,7 +102,7 @@ export default class ABLog extends React.Component<{
                 style={this.style(this).root}
             >
                 <span className="material-icons" style={this.upOrDownStyle}>
-                    {this.internal ? 'loop' : this.sent ? 'arrow_circle_up' : 'arrow_circle_down'}
+                    {this.internal ? 'loop' : this.received ? 'arrow_circle_down' : 'arrow_circle_up'}
                 </span>
                 <span style={this.style(this).source}>
                     {this.props.log.source.substr(0, 5)}
